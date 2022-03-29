@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 00:06:31
+ * @LastEditTime: 2022-03-30 00:28:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -36,6 +36,18 @@ npx mrm lint-staged
 # 7. prettier 和 eslint 一起工作会有冲突，需要安装工具解决冲突 eslint-config-prettier
 
 yarn add eslint-config-prettier -D
+
+# 8. 提交代码之前检检测代码是否符合规范，安装工具 commitlint 来检查
+
+yarn add @commitlint/config-conventional @commitlint/cli -D
+
+# 9. 运行终端命令，创建 commitlint.config.js 配置文件
+
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+
+# 10. 运行命令, 生成 commit-msg 文件
+
+npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 
 ## Available Scripts
 
