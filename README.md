@@ -1,6 +1,41 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-03-29 22:28:33
+ * @LastEditTime: 2022-03-30 00:06:31
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /jira/README.md
+-->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# 1. create-react-app simple
+
+npx create-react-app jira --template typescript
+
+# 2. 设置 baseUrl，
+
+在 tsconfig.json 文件中，设置统一的绝对路径，所有引入的也页面都是从 src 文件下来查找的
+
+# 3. 安装统一的格式化工具 prettier
+
+yarn add --dev --exact prettier
+
+# 4. 创建配置文件.prettierrc.json、.prettierignore
+
+# 5. 实现提交之前自动格式化文件内容，需安装工具
+
+npx mrm lint-staged
+
+# 6. 配置 lint-staged
+
+"\*.{js,css,md,ts,tsx}": "prettier --write"
+
+# 7. prettier 和 eslint 一起工作会有冲突，需要安装工具解决冲突 eslint-config-prettier
+
+yarn add eslint-config-prettier -D
 
 ## Available Scripts
 

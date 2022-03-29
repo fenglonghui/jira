@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // ###设置绝对路径，项目页面都是从src文件夹下找的
+    "baseUrl": "./src",
     "target": "es5",
     "lib": [
       "dom",
