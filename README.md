@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 00:42:02
+ * @LastEditTime: 2022-03-30 15:33:55
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -10,6 +10,8 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# 一. 项目创建初始化、配置代码格式化、提交前检查、并自动格式化代码
 
 # 1. create-react-app simple
 
@@ -48,6 +50,46 @@ echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitl
 # 10. 运行命令, 生成 commit-msg 文件
 
 npx husky add .husky/commit-msg "yarn commitlint --edit $1"
+
+# 二. mock 方案
+
+## 1. 代码侵入（代码中写死 mock 数据/请求本地 json 文件）
+
+## 2. 请求拦截
+
+### 代表 Mock.js)， Mock.mock(url, get, {……})，支持 ajax，不支持 fetch
+
+## 3. 接口管理工具
+
+### rap、swagger、noco、yapi
+
+## 4. 本地 node 服务器
+
+### 代表 json-server 配置简单 30s 启动一个 restfull Api Serever
+
+### 自定义程度高、增删改查真实模拟
+
+### REST API 说明
+
+    uri 代表资源/对象，method 代表行为
+    GET    /tickets         列表
+    GET    /tickets/12      详情
+    POST   /tickets         增加
+    PUT    /tickets/12      替换
+    PATCH  /tickets/12      修改
+    DELETE /tickets/12      删除
+
+## 配置 mock 数据服务器 yarn add json-server -D
+
+## 当前工程下创建 **json_server_mock** 文件夹，并在其中创建 db.json 文件（json_server_mock 文件名称前后加下划线'\_\_'表示该文件夹与项目没有关系，是一个辅助工具）
+
+## package.json 文件中 script 中添加命令 json-server, "json-server **json_server_mock**/db.json --watch"
+
+## 启动 json-seerver mock 服务器 npm run json-server
+
+## 配合 post man 进行网络请求填充数据，db.json 文件中，数据会自动动态获取进来
+
+# 三. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 
