@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 21:26:57
+ * @LastEditTime: 2022-03-30 21:58:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -102,7 +102,11 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 
 ### yarn add qs
 
-# 四. 项目运行调试、编译、发布打包
+# 四. Custom Hook 提取并复用组件代码
+
+    必须以use开头的函数， hook函数可放在hook函数中使用，也可放在函数组件中使用，不能放在普通函数中使用
+
+# 五. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-03-30 21:33:06
+ * @LastEditTime: 2022-03-30 22:12:23
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -9,7 +9,7 @@
 import React, { useState, useEffect } from 'react';
 import { SearchPanel } from './search-panel';
 import { List } from './list';
-import { cleanObject } from 'utils';
+import { cleanObject, useMount } from 'utils';
 import qs from 'qs';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -34,14 +34,14 @@ export const ProjectListScreen = () => {
         })
     }, [param]);
 
-    useEffect(() => {
+    useMount(() => {
         // 请求用户列表
         fetch(`${apiUrl}/users`).then(async response => {
             if(response.ok){
                 setUsers(await response.json())
             }
         })
-    }, []);
+    });
 
     return <div>
         <SearchPanel users={users} param={param} setParam={setParam} />

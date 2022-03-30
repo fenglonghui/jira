@@ -1,11 +1,13 @@
 /*
- * @Author: your name
+ * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-03-30 21:38:49
+ * @LastEditTime: 2022-03-30 22:48:46
  * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
  */
+
+import { useEffect, useState } from "react";
 
 export const isFalsy = (value) => (value === 0 ? false : !value);
 
@@ -20,4 +22,47 @@ export const cleanObject = (object) => {
     }
   });
   return result;
+};
+
+/*** 自定义 Custm Hook 提取并复用组件代码 **/
+
+/**
+ * 组件初始化时，调用一次，相当于class组件时代的componentDidMount方法
+ * @param {*} callback
+ */
+export const useMount = (callback) => {
+  useEffect(() => {
+    callback && callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+};
+
+/**
+ * 防抖，用于快速的输入事件中、🤚标事件等
+ * @param {*} func
+ * @param {*} delay
+ * @returns
+ */
+// export const useDebounce = (func, delay) => {
+//   let timeout;
+//   return () => {
+//     if(timeout){
+//       clearTimeout(timeout);
+//     }
+//     timeout = setTimeout(function(){
+//       func && func();
+//     }, delay);
+//   }
+// }
+
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // 每次在value变化以后，设定一个定时器
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
+    // 每次在上一个useEffect处理完以后在运行，清除上一个timeout，即上一个缓存的timeout取消
+    return () => clearTimeout(timeout);
+  }, [value, delay]);
+  return debouncedValue;
 };
