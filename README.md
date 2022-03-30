@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 15:44:39
+ * @LastEditTime: 2022-03-30 21:26:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -93,7 +93,16 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 
 ## 配合 post man 进行网络请求填充数据，db.json 文件中，数据会自动动态获取进来
 
-# 三. 项目运行调试、编译、发布打包
+# 三. 设置网络环境配置文件
+
+    创建.env文件, .env.development文件, 设置网络请求的基本地址REACT_APP_API_URL（包含开发地址、线上地址）
+
+    使用qs库处理网络请求的参数（http://localhost:3001/projects?name=&personId=2）
+    参数 name=lisi&personId=2 被qs库自动处理成以key: value形式的存在
+
+### yarn add qs
+
+# 四. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 
