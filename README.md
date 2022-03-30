@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 15:33:55
+ * @LastEditTime: 2022-03-30 15:44:39
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -59,11 +59,9 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 
 ### 代表 Mock.js)， Mock.mock(url, get, {……})，支持 ajax，不支持 fetch
 
-## 3. 接口管理工具
+## 3. 接口管理工具, 如：rap、swagger、noco、yapi
 
-### rap、swagger、noco、yapi
-
-## 4. 本地 node 服务器
+## 4. 本地 node 服务器 （推荐使用）
 
 ### 代表 json-server 配置简单 30s 启动一个 restfull Api Serever
 
@@ -79,13 +77,19 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
     PATCH  /tickets/12      修改
     DELETE /tickets/12      删除
 
-## 配置 mock 数据服务器 yarn add json-server -D
+## 配置 mock 数据服务器
+
+#### yarn add json-server -D
 
 ## 当前工程下创建 **json_server_mock** 文件夹，并在其中创建 db.json 文件（json_server_mock 文件名称前后加下划线'\_\_'表示该文件夹与项目没有关系，是一个辅助工具）
 
-## package.json 文件中 script 中添加命令 json-server, "json-server **json_server_mock**/db.json --watch"
+## package.json 文件中 scripts 中添加脚本命令 json-server
 
-## 启动 json-seerver mock 服务器 npm run json-server
+#### "json-server **json_server_mock**/db.json --watch"
+
+## 启动 json-seerver mock 服务器
+
+#### npm run json-server
 
 ## 配合 post man 进行网络请求填充数据，db.json 文件中，数据会自动动态获取进来
 
