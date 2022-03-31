@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-30 21:58:13
+ * @LastEditTime: 2022-03-31 12:09:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -105,8 +105,50 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 # 四. Custom Hook 提取并复用组件代码
 
     必须以use开头的函数， hook函数可放在hook函数中使用，也可放在函数组件中使用，不能放在普通函数中使用
+    自定义hook前提：当一个函数里需要使用hook函数时，需要自定义hook函数，当一个函数里不需要使用hook函数时，定义一个普通函数即可
+    自定义 useMount、useDebounce hook函数
 
-# 五. 项目运行调试、编译、发布打包
+# 五. typescript
+
+    强类型的javascript，bug少了，编辑器提示快了，代码易读开发速度快了，在定义（变量、函数组件，hook等）typescript允许我们在定义的同时指定其类型
+    将jsx文件转换成tsx文件，即js转换用ts
+    ts 增强类型，减少bug
+
+### 1. ts 的类型
+
+     number、
+     string、
+     array、
+     boolean、
+     tuple（混合类型的数组，不叫数组）
+        数量固定，不同类型、
+     函数、
+     any(不做任何类型检查)、
+     void、
+     object、
+     enum、
+        enum Color {
+            Red,
+            Green,
+            Blue,
+        }
+        let c: Color = Color.Green
+     null和undefined
+     unknown
+        可以是任何类型的值，严格版的any，它是检查类型
+        不能从unknown类型的变量上获取任何方法/也不能把unknown类型的变量赋值给其它变量
+     never类型:
+        const func = () => {
+            throw new Error()
+        }
+     interface
+
+    .d.ts
+        js 文件 + .d.ts文件 === ts文件
+        .d.ts文件可以让js文件继续维持自己js文件的身份，而拥有TS的类型保护
+
+
+# 六. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 

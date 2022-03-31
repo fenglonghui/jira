@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-03-30 22:48:46
+ * @LastEditTime: 2022-03-31 12:12:16
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -9,15 +9,17 @@
 
 import { useEffect, useState } from "react";
 
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 // 在一个函数里，改变传入的对象本身是不好
-export const cleanObject = (object) => {
+export const cleanObject = (object: object) => {
   // const result = Object.assign({}, object);
   const result = { ...object };
   Object.keys(result).forEach((key) => {
+    // @ts-ignore
     const value = result[key];
     if (isFalsy(value)) {
+      // @ts-ignore
       delete result[key]; // 去除对象中key对应的值为空的字段
     }
   });
@@ -30,7 +32,7 @@ export const cleanObject = (object) => {
  * 组件初始化时，调用一次，相当于class组件时代的componentDidMount方法
  * @param {*} callback
  */
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback && callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +57,8 @@ export const useMount = (callback) => {
 //   }
 // }
 
-export const useDebounce = (value, delay) => {
+// 用泛型来规范类型
+export const useDebounce = (value: unknown, delay?: number): any => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
