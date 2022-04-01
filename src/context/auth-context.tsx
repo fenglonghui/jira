@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:34:21
- * @LastEditTime: 2022-04-01 20:52:10
+ * @LastEditTime: 2022-04-01 23:48:09
  * @LastEditors: Please set LastEditors
  * @Description: Context上下文的创建、使用（代替之前redux）
  * @FilePath: /jira/src/context/auth-context.tsx
@@ -9,11 +9,25 @@
 import React, { useState } from "react";
 import * as auth from "auth-provider";
 import { User } from "screens/project-list/search-panel";
+import { http } from "utils/http";
+import { useMount } from "utils";
 
 interface AuthForm {
   username: string;
   password: string;
 }
+
+// 初始化用户信息
+const bootstrapUser = async () => {
+  let user = null;
+  const token = auth.getToken();
+  if (token) {
+    const data = await http("me", { token });
+    user = data.user;
+  }
+
+  return user;
+};
 
 // 1. 创建Context上下文
 const AuthContext = React.createContext<
@@ -36,6 +50,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = (form: AuthForm) => auth.login(form).then(setUser);
   const register = (form: AuthForm) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then(() => setUser(null));
+
+  useMount(() => {
+    // 初始化用户信息
+    bootstrapUser().then(setUser);
+  });
 
   return (
     <AuthContext.Provider

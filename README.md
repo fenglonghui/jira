@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-01 12:48:34
+ * @LastEditTime: 2022-04-02 00:05:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -92,6 +92,12 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 #### npm run json-server
 
 ## 配合 post man 进行网络请求填充数据，db.json 文件中，数据会自动动态获取进来
+
+使用分布式服务器
+安装命令：npx imooc-jira-tool
+
+重启 service work
+npx msw init public
 
 # 三. 设置网络环境配置文件
 
