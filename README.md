@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-01 11:35:16
+ * @LastEditTime: 2022-04-01 12:48:34
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -153,6 +153,8 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
     useState = <S>() => [S , dispatch<setAction<S>>];
 
     ts中类型是由泛型决定，不是类型推断决定的
+
+    鸭子类型（duck typing）: 面向接口编程 而不是面向对象编程， ts就是duck类型的
 
 # 六. 项目运行调试、编译、发布打包
 
