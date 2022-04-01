@@ -1,8 +1,8 @@
 /*
  * @Author: flh
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-01 13:57:15
- * @LastEditors: your name
+ * @LastEditTime: 2022-04-01 20:44:08
+ * @LastEditors: Please set LastEditors
  * @Description: 入口文件
  * @FilePath: /jira/src/index.tsx
  */
@@ -12,11 +12,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
+import { AppProviders } from "context";
 
 loadDevTools(() =>
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <AppProviders>
+        <App />
+      </AppProviders>
     </React.StrictMode>,
     document.getElementById("root")
   )

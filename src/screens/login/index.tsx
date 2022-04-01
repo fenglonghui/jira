@@ -1,33 +1,17 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 12:30:54
- * @LastEditTime: 2022-04-01 13:23:49
+ * @LastEditTime: 2022-04-01 21:14:49
  * @LastEditors: Please set LastEditors
  * @Description: 登录页面
  * @FilePath: /jira/src/screens/login/index.tsx
  */
 
+import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 export const LoginScreen = () => {
-  /**
-   * 登录
-   * @param param
-   */
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response) => {
-      if (response.ok) {
-      }
-    });
-  };
+  const { user, login } = useAuth();
 
   /**
    * 提交
@@ -42,6 +26,12 @@ export const LoginScreen = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {user ? (
+        <div>
+          登录成功，用户名：{user.name}
+          {user.token}
+        </div>
+      ) : null}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id="username" />
