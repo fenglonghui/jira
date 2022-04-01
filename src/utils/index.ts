@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-03-31 12:12:16
+ * @LastEditTime: 2022-04-01 11:39:08
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -58,7 +58,7 @@ export const useMount = (callback: () => void) => {
 // }
 
 // 用泛型来规范类型
-export const useDebounce = (value: unknown, delay?: number): any => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

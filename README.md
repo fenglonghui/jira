@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-03-31 12:09:49
+ * @LastEditTime: 2022-04-01 11:35:16
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -147,6 +147,12 @@ npx husky add .husky/commit-msg "yarn commitlint --edit $1"
         js 文件 + .d.ts文件 === ts文件
         .d.ts文件可以让js文件继续维持自己js文件的身份，而拥有TS的类型保护
 
+### ts 泛型
+
+    example: function useState<S>(S | (() => S)):[S, dispatch<setAction<S>>];
+    useState = <S>() => [S , dispatch<setAction<S>>];
+
+    ts中类型是由泛型决定，不是类型推断决定的
 
 # 六. 项目运行调试、编译、发布打包
 
