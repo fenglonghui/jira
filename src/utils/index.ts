@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-01 11:39:08
+ * @LastEditTime: 2022-04-01 12:20:47
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -68,4 +68,20 @@ export const useDebounce = <V>(value: V, delay?: number) => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debouncedValue;
+};
+
+// 数组管理
+export const useArray = <P>(initialArray: P[]) => {
+  const [value, setValue] = useState(initialArray);
+  return {
+    value,
+    setValue,
+    add: (item: P) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      const cloneValue = [...value];
+      cloneValue.splice(index, 1);
+      setValue(cloneValue);
+    },
+  };
 };
