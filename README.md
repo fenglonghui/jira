@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-02 00:05:36
+ * @LastEditTime: 2022-04-02 15:30:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -119,6 +119,39 @@ npx msw init public
     强类型的javascript，bug少了，编辑器提示快了，代码易读开发速度快了，在定义（变量、函数组件，hook等）typescript允许我们在定义的同时指定其类型
     将jsx文件转换成tsx文件，即js转换用ts
     ts 增强类型，减少bug
+
+    Utility type详解：
+    1. Parameters<typeof http> 获取和http一样类型的参数， 如 useHttp
+    (...[endpoint, config]: Parameters<typeof http>)
+    2. 联合类型
+    let FavouriteNumber = string | number | {};
+    3. 类型别名 type
+    type FavouriteNumber = string | number;
+    let resoeFavouriteNumber: FavouriteNumber = '23';
+
+    type Person = {
+        name: string,
+        age: number,
+    }
+
+    // Partial可编辑某类型的属性（name和age都可编辑）
+    4. const xiaoming: Partial<Person> = { name: 'xiaoming' };
+       const xiaoming: Partial<Person> = {};
+    // Omit 去除掉某类型的属性（name属性）
+    5. const shenmiren: Omit<Person, 'name'> = {age: 10};
+       const shenmiren: Omit<Person, 'name' | 'age'> = {};     // name age 都去掉
+    // keyof 把Person中的key都取出来组合成联合类型
+    6. type PersonKeys = keyof Person;
+    // pick 从Person中挑出name键作为新的类型
+    7. type PersonOnlyName = Pick<Person, 'name'>
+    //  Exclude 从PersonKeys联合类型中过滤掉'name'属性（只要age）组成新类型
+    8. type Age = Exclude<PersonKeys, 'name'>
+
+    4. interface 类型定义
+    interface Person {
+        name: string,
+        age: number
+    }
 
 ### 1. ts 的类型
 
