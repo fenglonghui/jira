@@ -1,12 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:17:36
- * @LastEditTime: 2022-04-01 23:04:34
+ * @LastEditTime: 2022-04-02 17:44:50
  * @LastEditors: Please set LastEditors
  * @Description: 搜索面板
  * @FilePath: /jira/src/screens/project-list/search-panel.jsx
  */
 import React from "react";
+import { Input, Select } from "antd";
 
 export interface User {
   id: string;
@@ -29,10 +30,11 @@ interface SearchPanelProps {
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <form action="">
+    <form>
       <div>
-        <input
+        <Input
           type="text"
+          placeholder={"项目名"}
           value={param.name}
           onChange={(evt) =>
             setParam({
@@ -41,22 +43,22 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         />
-        <select
+        <Select
           value={param.personId}
-          onChange={(evt) =>
+          onChange={(value) =>
             setParam({
               ...param,
-              personId: evt.target.value,
+              personId: value,
             })
           }
         >
-          <option value="">负责人</option>
+          <Select.Option value="">负责人</Select.Option>
           {users?.map((user) => (
-            <option key={user.id} value={user.id}>
+            <Select.Option key={user.id} value={user.id}>
               {user.name}
-            </option>
+            </Select.Option>
           ))}
-        </select>
+        </Select>
       </div>
     </form>
   );

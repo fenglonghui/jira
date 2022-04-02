@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-01 23:31:24
+ * @LastEditTime: 2022-04-02 17:39:22
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -10,10 +10,7 @@ import React, { useState, useEffect } from "react";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { cleanObject, useDebounce, useMount } from "utils";
-import qs from "qs";
 import { useHttp } from "utils/http";
-
-const apiUrl = process.env.REACT_APP_API_URL;
 
 export const ProjectListScreen = () => {
   // 状态提升
