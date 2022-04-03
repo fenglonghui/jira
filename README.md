@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-03 20:49:49
+ * @LastEditTime: 2022-04-03 23:48:55
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -270,7 +270,12 @@ npx msw init public
         PageHeader
         Main
 
-![Image text](assets/1648990069380.jpg)
+    7.gird 和 flex 各自的应用场景
+        7.1 要考虑，是一维布局 还是 二维布局
+            一般来说，一维布局用flex，二维布局用grid
+        7.2 是从内容出发还是从布局出发？
+            7.2.1 flex 布局: 从内容出发：你先有一组内容(数量一般不固定),然后希望他们均匀的分布在容器中，由内容自己的大小决定占据的空间
+            7.2.1 grid 布局：先规划网格(数量一般比较固定)，然后再把元素往里填充
 
 # 八. 项目运行调试、编译、发布打包
 
