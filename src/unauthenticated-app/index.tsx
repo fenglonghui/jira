@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:40:33
- * @LastEditTime: 2022-04-03 18:55:48
+ * @LastEditTime: 2022-04-03 18:59:31
  * @LastEditors: Please set LastEditors
- * @Description: 非认证页面（登录/注册切换页面）
+ * @Description: 非认证登录表单
  * @FilePath: /jira/src/unauthenticated-app/index.tsx
  */
 import React, { useState } from "react";

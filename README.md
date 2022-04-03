@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-03 18:12:16
+ * @LastEditTime: 2022-04-03 20:49:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -196,66 +196,81 @@ npx msw init public
 
 # 七. 样式的引入
 
-    Ant design 和 Emotion
+    引入 Ant design 和 Emotion 的组件库
 
-    Emotion是css-in-js中最受欢迎库之一，初次之外还有（style-component）
+    1. Emotion是css-in-js中最受欢迎库之一，初次之外还有（style-component）
+        CSS-in-JS 是组织CSS代码的一种方式，代表库有emotion和styled-component
+        传统CSS和CSS-in-JS比较区别：
+            1.1 缺乏模块组织（CSS-in-JS可以模块化方式组织css）
+            1.2 缺乏作用域（CSS只有全局作用域，CSS-in-JS生成独特选择符实现作用域的效果）
+            1.3 隐式依赖，让样式难以追踪（CSS-in-JS把样式包裹起来，形成组件：styled-component）
+            1.4 没有变量（CSS-in-JS可以有变量进行判断）
+            1.5 CSS选择器与html元素耦合（CSS-in-JS的样式独立、易于修改）
+            1.6 react 自带的css不支持处理伪类、级联等处理（CSS-in-JS支持）
 
-    引入ant design
-        1. yarn add antd
+    2. 适配全局页面视口高度（100vh）和尺寸单位比例（rem = 10px）
 
-        2. 入口引入antd.less样式(务必放在jira-dev-tool后面)
-        import "antd/dist/antd.less";
+    3. 引入ant design组件库
+        3.1 yarn add antd
 
-        3. 自定义antd的主题变量，对默认配置自定义，需要安装craco工具
-            1. yarn add @craco/craco
-            2. 修改package.json 的 "scripts"中的命令
+        3.2 入口引入antd.less样式(务必放在jira-dev-tool后面)
+            import "antd/dist/antd.less";
+
+        3.3 自定义antd的主题变量，对默认配置自定义，需要安装craco工具
+            3.3.1. yarn add @craco/craco
+            3.3.2 修改package.json 的 "scripts"中的命令
                 "start": "craco start",
                 "build": "craco build",
                 "test": "craco test",
-            3. 在项目根目录创建一个 craco.config.js 用于修改默认配置
-                1. 参照脚本文件内容
-                2. 参照配置主题：https://ant.design/docs/react/customize-theme-cn
+            3.3.3 在项目根目录创建一个 craco.config.js 用于修改默认配置
+            3.3.1 参照脚本文件内容
+            3.3.2 参照配置主题：https://ant.design/docs/react/customize-theme-cn
 
-            4. 安装 craco-less 并修改 craco.config.js
-                yarn add craco-less
+            3.3.4 安装 craco-less 并修改 craco.config.js
+                  yarn add craco-less
 
-            5. 引入antd 组件，并替换原来的标签
+            3.3.5 引入antd 组件，并替换原来的标签
 
-    CSS-in-JS 是组织CSS代码的一种方式，代表库有emotion和styled-component
-    传统CSS和CSS-in-JS比较区别：
-            1. 缺乏模块组织（CSS-in-JS可以模块化方式组织css）
-            2. 缺乏作用域（CSS只有全局作用域，CSS-in-JS生成独特选择符实现作用域的效果）
-            3. 隐式依赖，让样式难以追踪（CSS-in-JS把样式包裹起来，形成组件：styled-component）
-            4. 没有变量（CSS-in-JS可以有变量进行判断）
-            5. CSS选择器与html元素耦合（CSS-in-JS的样式独立、易于修改）
-            6. react 自带的css不支持处理伪类、级联等处理（CSS-in-JS支持）
+    4. 引入emotion组件库
+        4.1 安装 CSS-in-JS库emotion
+        yarn add @emotion/react @emotion/styled
 
-    适配全局页面视口高度（100vh）和尺寸单位比例（rem = 10px）
+        4.2 使用emotion的styled-component修改登录页的组件/标签样式
+        4.2.1 emotion/styled-component用法：
+              // 引入styled
+              import styled from '@emotion/styled';
+              标签用法（如 div）：
+                const Container = styled.div`
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    min-height: 100vh;
+                `
+              组件用法(如：Card)
+                const ShadowCard = styled(Card)`
+                    width: 40rem;
+                    min-height: 56rem;
+                    padding: 3.2rem 4rem;
+                    border-radius: 0.3rem;
+                    box-sizing: border-box;
+                    box-shadow: rgba(0,0,0,0.1) 0 0 10px;
+                    text-align: center;
+                `;
+    5. 使用emotion，优化未认证表单组件页，如：
+        Container
+        Header
+        BackGround
+        ShadowCard
+        Title
+        Divider
+        ShadowCard
+        LogButton
 
-    安装 CSS-in-JS库emotiuon
-    yarn add @emotion/react @emotion/styled
+    6. 使用emotion，优化认证后的列表组件（flex、grid布局的使用），如：
+        PageHeader
+        Main
 
-    使用emotion的styled-component修改登录页的组件/标签样式
-    用法：
-        // 引入
-        import styled from '@emotion/styled';
-        标签用法（如 div）：
-            const Container = styled.div`
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                min-height: 100vh;
-            `
-        组件用法(如：Card)
-            const ShadowCard = styled(Card)`
-                width: 40rem;
-                min-height: 56rem;
-                padding: 3.2rem 4rem;
-                border-radius: 0.3rem;
-                box-sizing: border-box;
-                box-shadow: rgba(0,0,0,0.1) 0 0 10px;
-                text-align: center;
-            `;
+![Image text](assets/1648990069380.jpg)
 
 # 八. 项目运行调试、编译、发布打包
 
