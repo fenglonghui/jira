@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 12:30:54
- * @LastEditTime: 2022-04-02 17:09:24
+ * @LastEditTime: 2022-04-03 18:56:03
  * @LastEditors: Please set LastEditors
  * @Description: 注册页面
  * @FilePath: /jira/src/screens/login/index.tsx
@@ -9,7 +9,8 @@
 
 import React from "react";
 import { useAuth } from "context/auth-context";
-import { Form, Button, Input } from "antd";
+import { Form, Input } from "antd";
+import { LogButton } from "unauthenticated-app";
 
 export const RegistScreen = () => {
   const { register } = useAuth();
@@ -37,9 +38,9 @@ export const RegistScreen = () => {
         <Input placeholder={"密码"} type="password" id={"password"} />
       </Form.Item>
       <Form.Item>
-        <Button htmlType={"submit"} type={"primary"}>
+        <LogButton htmlType={"submit"} type={"primary"}>
           注册
-        </Button>
+        </LogButton>
       </Form.Item>
     </Form>
   );
