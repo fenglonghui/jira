@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-01 12:20:47
+ * @LastEditTime: 2022-04-04 17:32:48
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -10,17 +10,27 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
+
+// let a: object;
+// a = {}
+// a = () => {}
+// a = []
+// a = new RegExp('')
+
+// let b: { [key: string]: unknown};
+// b = { name: 'jack' }
+// b = () => {}
 
 // 在一个函数里，改变传入的对象本身是不好
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   // const result = Object.assign({}, object);
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-      // @ts-ignore
-      delete result[key]; // 去除对象中key对应的值为空的字段
+    if (isVoid(value)) {
+      delete result[key]; // 去除对象中key属性及其对应的值为空的该行字段
     }
   });
   return result;
