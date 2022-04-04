@@ -1,17 +1,17 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-04 18:38:13
+ * @LastEditTime: 2022-04-04 23:50:59
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
  */
 import React from "react";
-import { Table } from "antd";
+import { Table, TableProps } from "antd";
 import { User } from "./search-panel";
 import dayjs from "dayjs";
 
-interface Project {
+export interface Project {
   id: string;
   name: string;
   personId: string;
@@ -20,12 +20,11 @@ interface Project {
   created: number;
 }
 
-interface ListProps {
-  list: Project[];
+interface ListProps extends TableProps<Project> {
   users: User[];
 }
 
-export const List = ({ users, list }: ListProps) => {
+export const List = ({ users, ...props }: ListProps) => {
   return (
     <Table
       pagination={false}
@@ -66,7 +65,7 @@ export const List = ({ users, list }: ListProps) => {
           key: "created",
         },
       ]}
-      dataSource={list}
+      {...props}
     ></Table>
   );
 };
