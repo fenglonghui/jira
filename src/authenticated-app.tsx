@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-04 00:04:13
+ * @LastEditTime: 2022-04-04 15:24:52
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -10,16 +10,17 @@ import { useAuth } from "context/auth-context";
 import React from "react";
 import styled from "@emotion/styled";
 import { ProjectListScreen } from "screens/project-list";
+import { Row } from "components/lib";
 
 export const AuthenticatedApp = () => {
   const { logout } = useAuth();
   return (
     <Container>
-      <Header>
-        <HeaderLeft>
-          <HeaderItem>Logo</HeaderItem>
-          <HeaderItem>项目</HeaderItem>
-          <HeaderItem>用户</HeaderItem>
+      <Header between={true}>
+        <HeaderLeft gap={true}>
+          <h2>Logo</h2>
+          <h2>项目</h2>
+          <h2>用户</h2>
         </HeaderLeft>
         <HeaderRight>
           <button onClick={logout}>登出</button>
@@ -42,19 +43,9 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Header = styled.header`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 6rem;
-  margin: 0 2rem;
-`;
+const Header = styled(Row)``;
 
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const HeaderLeft = styled(Row)``;
 
 const HeaderRight = styled.div`
   display: flex;
