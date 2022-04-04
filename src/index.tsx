@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-02 16:49:24
+ * @LastEditTime: 2022-04-04 18:39:53
  * @LastEditors: Please set LastEditors
  * @Description: 入口文件
  * @FilePath: /jira/src/index.tsx
@@ -11,15 +11,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { loadDevTools } from "jira-dev-tool";
+import { loadServer, DevTools } from "jira-dev-tool";
 // 务必在jira-dev-tool后面引入
 import "antd/dist/antd.less";
 import { AppProviders } from "context";
 
-loadDevTools(() =>
+loadServer(() =>
   ReactDOM.render(
     <React.StrictMode>
       <AppProviders>
+        <DevTools />
         <App />
       </AppProviders>
     </React.StrictMode>,

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:40:33
- * @LastEditTime: 2022-04-03 18:59:31
+ * @LastEditTime: 2022-04-04 17:38:10
  * @LastEditors: Please set LastEditors
  * @Description: 非认证登录表单
  * @FilePath: /jira/src/unauthenticated-app/index.tsx
@@ -27,9 +27,9 @@ export const UnauthenticatedApp = () => {
         <Title>{isRegister ? "请注册" : "请登录"}</Title>
         {isRegister ? <RegistScreen /> : <LoginScreen />}
         <Divider />
-        <a onClick={() => setIsRegister(!isRegister)}>
+        <Button type={"link"} onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? "已经有账号了？直接登录" : "没有账号？注册新账号"}
-        </a>
+        </Button>
       </ShadowCard>
     </Container>
   );

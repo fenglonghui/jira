@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-04 16:08:26
+ * @LastEditTime: 2022-04-04 18:38:13
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -34,10 +34,12 @@ export const List = ({ users, list }: ListProps) => {
           title: "名称",
           dataIndex: "name",
           sorter: (a, b) => a.name.localeCompare(b.name),
+          key: "name",
         },
         {
           title: "部门",
           dataIndex: "organization",
+          key: "organization",
         },
         {
           title: "负责人",
@@ -48,6 +50,7 @@ export const List = ({ users, list }: ListProps) => {
               </span>
             );
           },
+          key: "mainperson",
         },
         {
           title: "创建时间",
@@ -60,6 +63,7 @@ export const List = ({ users, list }: ListProps) => {
               </span>
             );
           },
+          key: "created",
         },
       ]}
       dataSource={list}
