@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:40:33
- * @LastEditTime: 2022-04-05 18:24:31
+ * @LastEditTime: 2022-04-05 18:59:20
  * @LastEditors: Please set LastEditors
  * @Description: 非认证登录表单
  * @FilePath: /jira/src/unauthenticated-app/index.tsx
@@ -22,7 +22,7 @@ export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   /* eslint-disable jsx-a11y/anchor-is-valid */
 
-  // useDocumentTitle('请注册或登录以继续');
+  useDocumentTitle("请注册或登录以继续");
   return (
     <Container>
       <Header />

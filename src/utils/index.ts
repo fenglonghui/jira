@@ -1,13 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-05 18:35:46
+ * @LastEditTime: 2022-04-05 18:54:37
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 export const isVoid = (value: unknown) =>
@@ -98,23 +98,20 @@ export const useArray = <P>(initialArray: P[]) => {
 
 // 修改浏览器页面title（闭包的使用）
 export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
-  // 1. 页面刚渲染时，获取起初的title
-  const oldTitle = document.title;
+  // 页面加载时: 旧title， useRef保存数据在组件整个生命周期中不变
+  const oldTitle = useRef(document.title).current;
 
-  console.log("渲染时的oldTitle：", oldTitle);
-
+  // 加载后：新title
   useEffect(() => {
     document.title = title;
-  }, [title]); // 3. 监听 title 变化调用回调
+  }, [title]);
 
   useEffect(() => {
-    console.log("重复渲染时的Title：", oldTitle);
     return () => {
-      // 4. 卸载调用
       if (!keepOnUnmount) {
-        console.log("卸载时的oldTitle：", oldTitle);
+        // 如果不指定依赖，读到的就是旧title
         document.title = oldTitle;
       }
     };
-  }, []); // 2. 初始化时调用
+  }, [keepOnUnmount, oldTitle]);
 };
