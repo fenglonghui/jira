@@ -2,7 +2,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-04 17:36:39
+ * @LastEditTime: 2022-04-05 13:34:06
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -18,6 +18,7 @@ import { Button, Dropdown, Menu } from "antd";
 
 export const AuthenticatedApp = () => {
   const { logout, user } = useAuth();
+
   return (
     <Container>
       <Header between={true}>

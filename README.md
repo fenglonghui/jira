@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-05 00:22:59
+ * @LastEditTime: 2022-04-05 13:26:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -302,6 +302,12 @@ npx msw init public
         自定义高级 hook：useAsync，useProjects hook
     2. 使用抽象用户列表
         自定义高级 hook：XXXX
+
+    3. 线上应用错误捕获及处理
+        3.1 开发错误边界组件 ErrorBoundary，处理全局错误异常信息
+        3.2 三方库处理错误边界方案：使用react-error-boundary 库处理线上错误信息
+        参照第三方库：https://github.com/bvaughn/react-error-boundary
+    这样就我们就对全局错误做一个兜底的方案（线上异常处理）
 
 # 九. 项目运行调试、编译、发布打包
 
