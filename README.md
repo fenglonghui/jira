@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-05 18:40:10
+ * @LastEditTime: 2022-04-05 20:35:21
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -319,8 +319,23 @@ npx msw init public
         </Helmet>
     2. 使用hook 修改页面title
        定义hook useDocumentTitle
+    3. 使用useRef修改页面title
 
-# 十. 项目运行调试、编译、发布打包
+# 十. 配置 react-router
+
+    1. 安装 React-router
+        yarn add react-router@6.0.0-bata.0 react-router-dom@6.0.0-beta.0
+
+    2. react-router 和 react-router-dom的区别
+        类似 react和react-dom、react-native、react-vr的区别
+        react是一个核心库，里面处理一些虚拟的、计算的、理论的逻辑，类似于我们在组件中state的状态、useEffect的状态怎么来影响虚拟dom树，这一次的虚拟Dom树和上一次的虚拟Dom树中间的diff运算，类似这种逻辑都是在react中处理的，得出的结果就会被react-dom消费，react-dom主要生活在浏览器的宿主环境里，里面充满了Dom操作，这些Dom操作只能在浏览器里运行，总之react-dom、react-native、react-vr都在消费React运算出来的结果。
+
+        Route、Routes都是react-router中的引入进来，他们在内存中就像是一个变量或对象在路由上不停的计算这棵路由树是怎样的，而计算结果给react-router-dom消费或者给native消费
+
+    3. 安装 history
+        yarn add history
+
+# 十一. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 

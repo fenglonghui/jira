@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-05 18:54:37
+ * @LastEditTime: 2022-04-05 23:22:24
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -115,3 +115,5 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
     };
   }, [keepOnUnmount, oldTitle]);
 };
+
+export const resetRoute = () => (window.location.href = window.location.origin);
