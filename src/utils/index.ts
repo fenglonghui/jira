@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-05 00:12:37
+ * @LastEditTime: 2022-04-05 18:35:46
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -94,4 +94,27 @@ export const useArray = <P>(initialArray: P[]) => {
       setValue(cloneValue);
     },
   };
+};
+
+// 修改浏览器页面title（闭包的使用）
+export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
+  // 1. 页面刚渲染时，获取起初的title
+  const oldTitle = document.title;
+
+  console.log("渲染时的oldTitle：", oldTitle);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]); // 3. 监听 title 变化调用回调
+
+  useEffect(() => {
+    console.log("重复渲染时的Title：", oldTitle);
+    return () => {
+      // 4. 卸载调用
+      if (!keepOnUnmount) {
+        console.log("卸载时的oldTitle：", oldTitle);
+        document.title = oldTitle;
+      }
+    };
+  }, []); // 2. 初始化时调用
 };

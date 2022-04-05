@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-05 13:26:13
+ * @LastEditTime: 2022-04-05 17:56:59
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -309,7 +309,17 @@ npx msw init public
         参照第三方库：https://github.com/bvaughn/react-error-boundary
     这样就我们就对全局错误做一个兜底的方案（线上异常处理）
 
-# 九. 项目运行调试、编译、发布打包
+# 九. 修改单页面浏览器 title
+
+    1. 使用react-helmet修改页面 （react方式）
+        yarn add react-helmet               (js)
+        yarn add @types/react-helmet -D     (ts)
+        <Helmet>
+            <title>项目列表</title>
+        </Helmet>
+    2.
+
+# 十. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 

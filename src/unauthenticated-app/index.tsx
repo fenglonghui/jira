@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:40:33
- * @LastEditTime: 2022-04-04 17:38:10
+ * @LastEditTime: 2022-04-05 18:24:31
  * @LastEditors: Please set LastEditors
  * @Description: 非认证登录表单
  * @FilePath: /jira/src/unauthenticated-app/index.tsx
@@ -15,10 +15,14 @@ import styled from "@emotion/styled";
 import logo from "assets/logo.svg";
 import left from "assets/left.svg";
 import right from "assets/right.svg";
+// import { Helmet } from "react-helmet";
+import { useDocumentTitle } from "utils";
 
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   /* eslint-disable jsx-a11y/anchor-is-valid */
+
+  // useDocumentTitle('请注册或登录以继续');
   return (
     <Container>
       <Header />
