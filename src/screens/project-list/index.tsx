@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-05 18:17:09
+ * @LastEditTime: 2022-04-06 18:13:26
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -15,13 +15,13 @@ import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 import { Helmet } from "react-helmet";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectListScreen = () => {
-  // 状态提升
-  const [param, setParam] = useState({
-    name: "",
-    personId: "",
-  });
+  // const [keys] = useState<('name' | 'personId')[]>(['name', 'personId']);
+
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
+  // setParam({name1: "123"})  // 类型范围：{name: '', personId: string} 此时没报错，需要处理
 
   // 防抖的使用
   const debounceParam = useDebounce(param, 1000);
@@ -40,6 +40,9 @@ export const ProjectListScreen = () => {
     </Container>
   );
 };
+
+// 跟踪该页面无限渲染的原因
+// ProjectListScreen.whyDidYouRender = true;
 
 const Container = styled.div`
   padding: 3.2rem;

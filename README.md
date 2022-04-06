@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-05 20:35:21
+ * @LastEditTime: 2022-04-06 18:11:40
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -334,6 +334,135 @@ npx msw init public
 
     3. 安装 history
         yarn add history
+
+    4. 看板和epic路由
+
+    5. 初步实现useUrlQueryParam 管理url参数状态
+        利用react-router-dom通提供的hook：useSearchParams可获取请求参数
+        定义 url.ts中定义hook -> useUrlQueryParam
+
+        import { useSearchParams } from 'react-router-dom';
+        const [searchParam, setSearchParam] = useSearchParams();
+        // searchParam react认为它是当前组件的state，一般不会变，除非刻意使用setSearchParam，react此时认为searchParam发生变化
+
+    6. 无限循环渲染问题
+        1. 使用 why-did-you-render 库查找无限渲染原因
+            安装 yarn add @welldone-software/why-did-you-render;
+        2. 配置 wdyr.ts 脚本
+        3. 在 src/index中第一句引入配置脚本
+            import './wdyr.ts';
+        4. 在指定页面 ProjectListScreen 设置追踪属性值，进行追踪原因
+            // 跟踪该页面无限渲染的原因
+            ProjectListScreen.whyDidYouRender = true;
+
+        5. 原因：由于useUrlQueryParam hook函数每次返回新的对象，该对象会作为参数被传入 useDebounce hook函数中，而 useDebounce中的 useEffect的依赖项恰好就是该返回的新对象，导致循环渲染
+
+        6. 解决方案
+            使用useMemo包裹，该对象作为创建函数的返回值即可
+            useMemo理解： 传入创建函数和依赖项，并返回memoized值，只有在依赖项发生改变时重新计算该值
+
+        7. 泛型理解（针对 useUrlQueryParam Hook函数传参和接收参数的泛型理解）
+                1. ['name', 'personId'] 、 ('name' | 'personId')[]、 K[] 的区别
+                2  {} as {[key in K]: string} 此时 key 和 K 之间是啥关系？
+
+```
+                // const [keys] = useState<('name' | 'personId')[]>(['name', 'personId']);
+
+                const [param] = useUrlQueryParam(['name', 'personId']);
+
+                /**
+                * 返回页面url中，指定键的参数值
+                * @param keys 指定键数组
+                */
+                export const useUrlQueryParam = <K extends string>(keys: K[]) => {
+                    const [searchParam, setSearchParam] = useSearchParams();
+                    // searchParam react认为是当前组件的state，一般不会变，除非刻意使用setSearchParam，react此时认为searchParam发生变化
+                    return [
+                        useMemo(
+                            () => keys.reduce((prev, key) => {
+                                return { ...prev, [key]: searchParam.get(key) || '' }
+                            }, {} as {[key in K]: string}),
+
+                            // eslint-disable-next-line react-hooks/exhaustive-deps
+                            [searchParam]),
+                        setSearchParam
+                    ] as const
+                }
+```
+
+        8. 关于react-hook中的 依赖 的一个经典的坑（会导致渲染循环）
+
+            解决方案总结：
+                1. 基本类型 可以放到依赖里
+                2. 组件状态 可以放到依赖里
+                3. 非组件状态对象 绝不可以放到依赖里 （会导致渲染循环）
+
+        9. iterator es6的一个概念，其中 {},[],Map都具有iterator特性，是可迭代的
+            特点：可使用 for of 进行遍历
+            Object.fromEntries(iterator)方法 把键值对列表转化为一个对象
+
+            1. 查看对象、数组、Map 是否具有 iterator
+                如: var a = [1,2,3];
+                    a[Symbol.iterator] 是一个函数，即 f () {[native code]}
+                    var i = a[Symbol.iterator]();
+                    i.next();   // 迭代遍历 1
+                    i.next();   // 迭代遍历 2
+                    i.next();   // 迭代遍历 3
+                    i.next();   // 迭代 结束
+
+            2. 迭代过程打印
+
+```
+                var a = [1,2,3];
+                // 查看是否具有 iterator属性， 实质是个函数
+                a[Symbol.iterator] --> ƒ values() { [native code] }
+
+                // 调用迭代函数
+                var i = a[Symbol.iterator]();
+
+                // 获取数组迭代器
+                i --> Array Iterator {}[[Prototype]]: Array Iteratornext: ƒ next()length: 0name: "next"arguments: （…）caller: （…）[[Prototype]]: ƒ ()[[Scopes]]: Scopes[0]Symbol(Symbol.toStringTag): "Array Iterator"[[Prototype]]: Object
+
+                // 调用迭代器的next函数，逐个遍历打印
+                i.next()  ---> {value: 1, done: false}
+                i.next()  ---> {value: 2, done: false}
+                i.next()  ---> {value: 3, done: false}
+                i.next()  ---> {value: undefined, done: true}
+```
+
+            3. 对象迭代器的实现
+                iterator: https://codesandbox.io/s/upbeat-wood-bum3j?file=/src/index.js
+
+                import "./styles.css";
+
+```
+                // 1. obj 实现了 Symbol.iterator
+                const obj = {
+                    data: ["hello", "world"],
+                    [Symbol.iterator]() {
+                        const self = this;
+                        let index = 0;
+                        return {
+                            next() {
+                                if (index < self.data.length) {
+                                    return {
+                                        value: self.data[index++],
+                                        done: false
+                                    };
+                                } else {
+                                    return { value: undefined, done: true };
+                                }
+                            }
+                        };
+                    }
+                };
+
+                // obj 实现了 Symbol.iterator ，故 obj可使用 for of 来迭代遍历
+                for (let o of obj) {
+                    console.log(o);
+                }
+
+```
 
 # 十一. 项目运行调试、编译、发布打包
 

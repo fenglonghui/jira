@@ -1,11 +1,12 @@
 /*
  * @Author: flh
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-04 18:39:53
+ * @LastEditTime: 2022-04-06 15:57:13
  * @LastEditors: Please set LastEditors
  * @Description: 入口文件
  * @FilePath: /jira/src/index.tsx
  */
+import "./wdyr.ts";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
