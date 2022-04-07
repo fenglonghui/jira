@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:34:21
- * @LastEditTime: 2022-04-01 23:48:09
+ * @LastEditTime: 2022-04-07 16:29:16
  * @LastEditors: Please set LastEditors
  * @Description: Context上下文的创建、使用（代替之前redux）
  * @FilePath: /jira/src/context/auth-context.tsx
@@ -45,6 +45,7 @@ AuthContext.displayName = "AuthContext";
 
 // 2. 定义Context上下文Provider组件
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  // 维护当前登录用户信息
   const [user, setUser] = useState<User | null>(null);
 
   const login = (form: AuthForm) => auth.login(form).then(setUser);

@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-04-06 21:54:07
- * @LastEditTime: 2022-04-06 23:01:26
+ * @LastEditTime: 2022-04-07 18:19:01
  * @LastEditors: Please set LastEditors
- * @Description: 封装select组件
+ * @Description: 封装 Select 组件
  * @FilePath: /jira/src/components/id-select.tsx
  */
 import React from "react";
@@ -18,23 +18,23 @@ interface IdSelectProps
   value: Raw | undefined | null;
   onChange: (value?: number) => void;
   defaultOptionName?: string;
-  options?: { name: string; id: string }[];
+  options?: { name: string; id: string | number }[]; // 待优化 ？？？
 }
 
 /**
- * value: 可以传 string，number，null，undefined 类型
- * onChange 只回调 number | undefined 类型
- * 当 isNaN(Number(value)) 为 true的时候，代表选择默认类型
- * 当选择默认类型的时候，onChange会回调 undefined类型
- *
+ * 1. 外部 value: 可以传 string，number，null，undefined 类型
+ * 2. 外部 onChange 只回调 number | undefined 类型
+ * 3. 当 isNaN(Number(value)) 为 true的时候，代表选择默认类型
+ *    当选择默认类型的时候，onChange会回调 undefined类型
  */
 export const IdSelect = (props: IdSelectProps) => {
-  const { value, onChange, defaultOptionName, options } = props;
+  const { value, onChange, defaultOptionName, options, ...restProps } = props;
 
   return (
     <Select
-      value={toNumber(value)}
+      value={options?.length ? toNumber(value) : 0}
       onChange={(val) => onChange(toNumber(val) || undefined)}
+      {...restProps}
     >
       {defaultOptionName ? (
         <Select.Option value={0}>{defaultOptionName}</Select.Option>
@@ -49,5 +49,5 @@ export const IdSelect = (props: IdSelectProps) => {
   );
 };
 
-// value 可以是多个类型，故取 unknown 类型
+// value 可以是多个类型数据，故取 unknown 类型
 const toNumber = (value: unknown) => (isNaN(Number(value)) ? 0 : Number(value));

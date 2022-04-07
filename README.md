@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-06 23:03:08
+ * @LastEditTime: 2022-04-07 12:07:26
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -467,12 +467,30 @@ npx msw init public
 # 十一. 实现 id-select.tsx，解决 id 类型 难题
 
     1. 添加id-select.tsx组件
-        // 利用 React.ComponentProps 从 Select 组件上扒出它所有的props属性
+        // 利用 React.ComponentProps 从 Select 组件上扒出改组件所具有的所有props属性
         type SelectProps = React.ComponentProps<typeof Select>;
+        1. 定义组件自己类型，2 拔取原生组件所有属性作为继承属性
+        2. 封装select组件
+
     2. 修改相关id为 number 类型
-        修改 /project-list/search-panel.tsx， User -> id, personId
-        修改 / SearchPanelProps -> personId
-        修改 /project-list/list.tsx -> Project -> id, personId
+        2.1 修改 /project-list/search-panel.tsx，
+            User类型： id: number
+            SearchPanelProps类型:  personId: number
+
+        2.2 修改 /project-list/list.tsx
+             Project类型: id: number, personId: number
+
+        2.3 优化 SearchPanelProps 类型
+            使用 Typescript中的 Utility type 优化 SearchPanelProps类型中的 param
+
+```
+            interface SearchPanelProps {
+                users: User[];
+                param: Pick<Project, 'name'|'personId'>;
+                setParam: (param: SearchPanelProps[param]) => void
+
+            }
+```
 
 # 十二. 项目运行调试、编译、发布打包
 

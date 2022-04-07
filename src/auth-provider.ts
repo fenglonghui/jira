@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:11:08
- * @LastEditTime: 2022-04-01 21:25:59
+ * @LastEditTime: 2022-04-07 17:31:48
  * @LastEditors: Please set LastEditors
  * @Description: 真实环境中，如果使用firebase这种第三方的auth服务，本文件不需要开发者开发
  * @FilePath: /jira/src/auth-provider.ts

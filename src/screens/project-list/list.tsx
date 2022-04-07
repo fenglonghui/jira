@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-05 22:20:45
+ * @LastEditTime: 2022-04-07 14:27:36
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -13,9 +13,9 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
 export interface Project {
-  id: string;
+  id: number;
   name: string;
-  personId: string;
+  personId: number;
   pin: boolean;
   organization: string;
   created: number;
