@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-07 12:07:26
+ * @LastEditTime: 2022-04-07 22:40:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -471,6 +471,17 @@ npx msw init public
         type SelectProps = React.ComponentProps<typeof Select>;
         1. 定义组件自己类型，2 拔取原生组件所有属性作为继承属性
         2. 封装select组件
+        3. 封装UserSelect组件
+        4. 封装Spin组件（收藏组件：星星组件非二次封装）
+            注意：普通函数不能调用Hook 函数， hook函数必须放在组件顶层或hook函数中
+            1. 在普通的事件回调中， 采用设计在hook函数中定义并返回普通函数的方式，实现触发事件回调功能，从而规避了
+            在普通函数中调用Hook函数(这是行不通的)
+            const { mutate } = useEditProject();
+            2. 收藏/取消功能 函数柯理化改造
+            const pinProject = (id: number) => (pin: boolean) => mutate({id, pin})
+            3. 收藏/取消功能实现，但页面还不能刷新
+                ？？？
+
 
     2. 修改相关id为 number 类型
         2.1 修改 /project-list/search-panel.tsx，
