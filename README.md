@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-08 10:30:16
+ * @LastEditTime: 2022-04-08 15:26:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -527,7 +527,37 @@ npx msw init public
             }
 ```
 
-# 十二. 项目运行调试、编译、发布打包
+# 十二. 优化并解决问题
+
+        1. 对于hook函数的依赖项 缺少相关依赖字段时，而报出警告问题
+            这个是一个 eslint 问题，可借助useCallback和useMemo解决
+
+        2. 在进行耗时操作 或 长时间网络请求过程中，突然切换页面或退出该页面（replace掉当前页面）时，报出错误异常问题
+            这是一个页面已卸载掉，但页面中的异步任务还在执行，试图设置数据，导致错误出现
+
+            一般报错为：一个未挂载的组件不能执行React状态更新操作，this is a no-op, 它导致你的应用中发生内存泄漏
+            Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function
+
+            解决方案：定义hook函数 useMountedRef， 根据返回组件的挂载状态设置数据
+                    /**
+                    * 返回组件的挂载状态，如果还没挂载或已卸载 返回false，反之，返回true
+                    * @returns
+                    */
+                    export const useMountedRef = () => {
+                        const mountedRef = useRef(false);
+                        useEffect(() => {
+                            mountedRef.current = true;
+                            return () => {
+                            mountedRef.current = false;
+                            }
+                        })
+                        return mountedRef;
+                    }
+
+                    const mountedRef = useMountedRef();
+                    if(mountedRef.current) setData(data);
+
+# 十三. 项目运行调试、编译、发布打包
 
 ## Available Scripts
 

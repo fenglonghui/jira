@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-06 14:04:17
- * @LastEditTime: 2022-04-07 15:15:50
+ * @LastEditTime: 2022-04-08 14:25:38
  * @LastEditors: Please set LastEditors
  * @Description: 初步实现useUrlQueryParam 管理url参数状态
  *      使用useMemo传入创建函数和依赖项，并返回memoized值，只有在依赖项发生改变时重新计算该值
@@ -26,7 +26,7 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
         }, {} as { [key in K]: string }),
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [searchParam]
+      [searchParam] // TODO 依赖里没有keys
     ),
     (params: Partial<{ [key in K]: unknown }>) => {
       const o = cleanObject({

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:24:00
- * @LastEditTime: 2022-04-08 08:01:57
+ * @LastEditTime: 2022-04-08 14:26:20
  * @LastEditors: Please set LastEditors
  * @Description: 抽象用户列表
  * @FilePath: /jira/src/utils/user.ts
@@ -26,7 +26,7 @@ export const useUsers = (param?: Partial<User>) => {
   useEffect(() => {
     run(client("users", { data: cleanObject(param || {}) }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [param]); // TODO 依赖里没有run和client
 
   return result;
 };

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-06 16:10:33
+ * @LastEditTime: 2022-04-08 15:23:36
  * @LastEditors: Please set LastEditors
  * @Description: 公共函数/hook函数
  * @FilePath: /jira/src/utils/index.ts
@@ -45,6 +45,7 @@ export const cleanObject = (object: { [key: string]: unknown }) => {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback && callback();
+    // TODO 依赖项里加上callback，会导致无限循环渲染，这个和useCallback及useMemo有关
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
@@ -95,6 +96,21 @@ export const useArray = <P>(initialArray: P[]) => {
       setValue(cloneValue);
     },
   };
+};
+
+/**
+ * 返回组件的挂载状态，如果还没挂载或已卸载 返回false，反之，返回true
+ * @returns
+ */
+export const useMountedRef = () => {
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
+  return mountedRef;
 };
 
 // 修改浏览器页面title（闭包的使用）

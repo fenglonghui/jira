@@ -1,13 +1,14 @@
 /*
  * @Author: flh
  * @Date: 2022-04-04 22:18:06
- * @LastEditTime: 2022-04-08 12:18:58
+ * @LastEditTime: 2022-04-08 15:18:53
  * @LastEditors: Please set LastEditors
  * @Description: 高级Hook：useAsync统一处理Loading和Error状态
  * @FilePath: /jira/src/utils/use-async.ts
  */
 
 import { useState } from "react";
+import { useMountedRef } from "utils";
 
 /**
  * 定义 State 类型
@@ -38,6 +39,8 @@ export const useAsync = <D>(initialState?: State<D>) => {
     ...defaultInitialState,
     ...initialState,
   });
+
+  const mountedRef = useMountedRef();
 
   // 使用 retry 缓存 run函数及Promise对象，更新页面, retry就是一个函数
   const [retry, setRetry] = useState(() => () => {});
@@ -77,7 +80,7 @@ export const useAsync = <D>(initialState?: State<D>) => {
     setState({ ...state, stat: "loading" });
     return promise
       .then((data) => {
-        setData(data);
+        if (mountedRef.current) setData(data);
         return data;
       })
       .catch((error) => {
