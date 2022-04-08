@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 22:21:46
- * @LastEditTime: 2022-04-01 23:26:48
+ * @LastEditTime: 2022-04-08 18:36:12
  * @LastEditors: Please set LastEditors
  * @Description: 抽取通用的网络请求
  *  注意：fetch请求 除了断网、网络连接失时会被catch捕获到，其他的异常像 4XX, 5XX等异常均不会被捕获到
@@ -11,6 +11,7 @@
 import qs from "qs";
 import * as auth from "auth-provider";
 import { useAuth } from "context/auth-context";
+import { useCallback } from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -69,6 +70,9 @@ export const http = async (
  */
 export const useHttp = () => {
   const { user } = useAuth();
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
+  return useCallback(
+    (...[endpoint, config]: Parameters<typeof http>) =>
+      http(endpoint, { ...config, token: user?.token }),
+    [user?.token]
+  );
 };

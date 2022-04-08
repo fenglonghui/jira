@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-08 15:26:49
+ * @LastEditTime: 2022-04-08 18:54:45
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -392,10 +392,17 @@ npx msw init public
 
         8. 关于react-hook中的 依赖 的一个经典的坑（会导致渲染循环）
 
-            解决方案总结：
+            作为依赖的数据的类型的适用场景总结：
                 1. 基本类型 可以放到依赖里
+                   比如：不是对象、数组、函数
+
                 2. 组件状态 可以放到依赖里
-                3. 非组件状态对象 绝不可以放到依赖里 （会导致渲染循环）
+                    比如：
+                        从 const [person, setPerson] = useState({name: 'zs'}) 函数中
+                        返回来的的 person 就是组件状态
+
+                3. 非组件状态， 非基本类型 是不可以放到依赖里的 （会导致渲染循环）
+                    普通对象，普通数组，函数等 不能做依赖
 
         9. iterator es6的一个概念，其中 {},[],Map都具有iterator特性，是可迭代的
             特点：可使用 for of 进行遍历
@@ -531,6 +538,26 @@ npx msw init public
 
         1. 对于hook函数的依赖项 缺少相关依赖字段时，而报出警告问题
             这个是一个 eslint 问题，可借助useCallback和useMemo解决
+            1. 使用eslint方式强制压制警告
+            2. 借助useMemo 和 useCallback, 缓存依赖（普通函数、普通对象、普通数组）
+                使用useCallback方法限制 useProjects方法相关的函数，解除了警告问题，并成功避免了无限循环渲染问题
+                对于useProjects，请求网络数据，使用useCallback限制相关依赖的函数，改造成功！
+
+
+            useMemo 和 useCallback 应用场景：
+
+                都是为了依赖而存在，就是非基本类型的依赖， 如果使用非基本类型的依赖，就得用useMemo 和 useCallback把他们限制住，让他们不要在每次页面渲染的时候都会重新创建
+
+            注意：  在写自定义hook的时候，hook中要返回函数的时候，这个函数大概率要用useCallback把它限制住，要不然在以后使用中，可能会在useEffect中调用时，eslint会提示，要求把它作为useEffect的依赖，最终会导致无限循环渲染
+
+            useMemo 和 useCallback 接收的参数都是一样,第一个参数为回调 第二个参数为要依赖的数据
+
+                共同作用：
+                    1.仅仅 依赖数据 发生变化, 才会重新计算结果，也就是起到缓存的作用。
+
+                两者区别：
+                    1.useMemo 计算结果是 return 回来的值, 主要用于 缓存计算结果的值 ，应用场景如： 需要 计算的状态
+                    2.useCallback 计算结果是 函数, 主要用于 缓存函数，应用场景如: 需要缓存的函数，因为函数式组件每次任何一个 state 的变化 整个组件 都会被重新刷新，一些函数是没有必要被重新刷新的，此时就应该缓存起来，提高性能，和减少资源浪费。
 
         2. 在进行耗时操作 或 长时间网络请求过程中，突然切换页面或退出该页面（replace掉当前页面）时，报出错误异常问题
             这是一个页面已卸载掉，但页面中的异步任务还在执行，试图设置数据，导致错误出现

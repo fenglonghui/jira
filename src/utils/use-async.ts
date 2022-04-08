@@ -1,13 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-04 22:18:06
- * @LastEditTime: 2022-04-08 15:18:53
+ * @LastEditTime: 2022-04-08 18:51:21
  * @LastEditors: Please set LastEditors
  * @Description: 高级Hook：useAsync统一处理Loading和Error状态
  * @FilePath: /jira/src/utils/use-async.ts
  */
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useMountedRef } from "utils";
 
 /**
@@ -46,48 +46,54 @@ export const useAsync = <D>(initialState?: State<D>) => {
   const [retry, setRetry] = useState(() => () => {});
 
   // 设置data (网络请求成功调用该函数)
-  const setData = (data: D) =>
-    setState({
-      data,
-      stat: "success",
-      error: null,
-    });
+  const setData = useCallback(
+    (data: D) =>
+      setState({
+        data,
+        stat: "success",
+        error: null,
+      }),
+    []
+  );
 
   // 设置error (网络请求失败调用该函数)
-  const setError = (error: Error) =>
-    setState({
-      error,
-      stat: "error",
-      data: null,
-    });
+  const setError = useCallback(
+    (error: Error) =>
+      setState({
+        error,
+        stat: "error",
+        data: null,
+      }),
+    []
+  );
 
   // run 触发异步请求, 为了实现缓存run函数实现刷新数据，需要改造
-  const run = (
-    promise: Promise<D>,
-    runConfig?: { retry: () => Promise<D> }
-  ) => {
-    if (!promise || !promise.then) {
-      throw new Error("请传入 Promise 类型数据");
-    }
-
-    // 缓存 run 函数和网络请求
-    setRetry(() => () => {
-      if (runConfig?.retry) {
-        run(runConfig.retry(), runConfig); // 缓存 run 函数和 网络请求结果Promise
+  const run = useCallback(
+    (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+      if (!promise || !promise.then) {
+        throw new Error("请传入 Promise 类型数据");
       }
-    });
 
-    setState({ ...state, stat: "loading" });
-    return promise
-      .then((data) => {
-        if (mountedRef.current) setData(data);
-        return data;
-      })
-      .catch((error) => {
-        setError(error);
-        return error;
+      // 缓存 run 函数和网络请求
+      setRetry(() => () => {
+        if (runConfig?.retry) {
+          run(runConfig.retry(), runConfig); // 缓存 run 函数和 网络请求结果Promise
+        }
       });
-  };
+
+      setState((prevState) => ({ ...prevState, stat: "loading" }));
+      return promise
+        .then((data) => {
+          if (mountedRef.current) setData(data);
+          return data;
+        })
+        .catch((error) => {
+          setError(error);
+          return error;
+        });
+    },
+    [mountedRef, setData, setError]
+  );
 
   return {
     isIdle: state.stat === "idle",

@@ -1,13 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-08 12:25:06
+ * @LastEditTime: 2022-04-08 18:37:05
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/utils/projects.ts
  */
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Project } from "screens/project-list/list";
 import { cleanObject } from "utils";
 import { useHttp } from "./http";
@@ -23,14 +23,15 @@ export const useProjects = (param?: Partial<Project>) => {
   const { run, ...result } = useAsync<Project[]>();
 
   // 网络请求回调
-  const fetchProjects = () =>
-    client("projects", { data: cleanObject(param || {}) });
+  const fetchProjects = useCallback(
+    () => client("projects", { data: cleanObject(param || {}) }),
+    [client, param]
+  );
 
   useEffect(() => {
     // 网络请求列表 Project[]
     run(fetchProjects(), { retry: fetchProjects });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [fetchProjects, param, run]);
 
   return result;
 };
