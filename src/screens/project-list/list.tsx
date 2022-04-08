@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-07 22:09:52
+ * @LastEditTime: 2022-04-08 12:43:58
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -25,6 +25,7 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
+  refresh?: () => void;
 }
 
 // return <Pin checked={project.pin} onCheckedChange={ pin => {
@@ -41,7 +42,8 @@ export const List = ({ users, ...props }: ListProps) => {
 
   // const pinProject = (id: number, pin: boolean) => mutate({id, pin})
   // 函数柯理化改造
-  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const pinProject = (id: number) => (pin: boolean) =>
+    mutate({ id, pin }).then(props.refresh);
 
   return (
     <Table

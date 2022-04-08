@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-08 08:23:36
+ * @LastEditTime: 2022-04-08 10:30:16
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -482,7 +482,7 @@ npx msw init public
             3. 收藏/取消功能实现，但页面还不能刷新
                 ？？？
 
-        5. useState传入的参数为函数时,被认为是惰性初始化，一上来就执行该函数，会认为数函数里运行的是一些昂贵的很耗性能的任务，执行一次之后，无论页面怎么刷新渲染都不再执行, 除非调用 set相关方法改变参数函数，才会再执行
+        5. useState传入的参数为函数时,被认为是惰性初始state，一上来就执行该函数，会认为数函数里运行的是一些昂贵的很耗性能的任务，执行一次之后，无论页面怎么刷新渲染都不再执行, 除非调用 set相关方法改变参数函数，才会再执行
 
             // 惰性初始化
             const [retry, setRetry] = useState(() => {
@@ -503,7 +503,7 @@ npx msw init public
             2. 使用 useRef 存储函数
                 useRef容器里保存的值是一个普通变量，并不是组件的状态，不会引起组件渲染
 
-
+            3. 点击列表的收藏/取消功能后，刷新页面./project-list/index.tsx
 
 
 

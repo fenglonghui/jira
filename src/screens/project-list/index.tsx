@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-07 15:11:24
+ * @LastEditTime: 2022-04-08 12:44:38
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -34,7 +34,8 @@ export const ProjectListScreen = () => {
     isLoading,
     error,
     data: list,
-  } = useProjects(useDebounce(param, 1000)); // 防抖的使用
+    retry,
+  } = useProjects(useDebounce(param, 1000)); // 防抖的使用  传参 param 进来
   const { data: users } = useUsers();
 
   return (
@@ -44,7 +45,12 @@ export const ProjectListScreen = () => {
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
-      <List loading={isLoading} dataSource={list || []} users={users || []} />
+      <List
+        refresh={retry}
+        loading={isLoading}
+        dataSource={list || []}
+        users={users || []}
+      />
     </Container>
   );
 };

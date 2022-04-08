@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-07 21:37:16
+ * @LastEditTime: 2022-04-08 12:25:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/utils/projects.ts
@@ -14,7 +14,7 @@ import { useHttp } from "./http";
 import { useAsync } from "./use-async";
 
 /**
- * 请求工程列表接口
+ * 网络请工程列表接口
  * @param param
  * @returns
  */
@@ -22,9 +22,13 @@ export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
   const { run, ...result } = useAsync<Project[]>();
 
+  // 网络请求回调
+  const fetchProjects = () =>
+    client("projects", { data: cleanObject(param || {}) });
+
   useEffect(() => {
-    // 请求列表（防抖的使用）
-    run(client("projects", { data: cleanObject(param || {}) }));
+    // 网络请求列表 Project[]
+    run(fetchProjects(), { retry: fetchProjects });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param]);
 
