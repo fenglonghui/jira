@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-07 22:40:47
+ * @LastEditTime: 2022-04-08 08:23:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -481,6 +481,30 @@ npx msw init public
             const pinProject = (id: number) => (pin: boolean) => mutate({id, pin})
             3. 收藏/取消功能实现，但页面还不能刷新
                 ？？？
+
+        5. useState传入的参数为函数时,被认为是惰性初始化，一上来就执行该函数，会认为数函数里运行的是一些昂贵的很耗性能的任务，执行一次之后，无论页面怎么刷新渲染都不再执行, 除非调用 set相关方法改变参数函数，才会再执行
+
+            // 惰性初始化
+            const [retry, setRetry] = useState(() => {
+                alert('init');
+            })
+
+            一上来就执行参数函数，调用alert('init')，执行一次之后，无论页面怎么刷新都不再执行
+
+            除非调用下面代码
+                setRetry(() => {
+                    alert('update');
+                }),
+            才会再执行
+
+        存储函数的方式：
+            1. 使用 useState 保存函数，不能直接传函数，需要传函数的函数: () => () => {}
+                useState容器里保存的值是组件状态，会引起组件渲染
+            2. 使用 useRef 存储函数
+                useRef容器里保存的值是一个普通变量，并不是组件的状态，不会引起组件渲染
+
+
+
 
 
     2. 修改相关id为 number 类型

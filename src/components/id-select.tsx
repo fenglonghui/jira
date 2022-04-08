@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-06 21:54:07
- * @LastEditTime: 2022-04-07 18:19:01
+ * @LastEditTime: 2022-04-08 07:56:56
  * @LastEditors: Please set LastEditors
  * @Description: 封装 Select 组件
  * @FilePath: /jira/src/components/id-select.tsx
@@ -18,7 +18,7 @@ interface IdSelectProps
   value: Raw | undefined | null;
   onChange: (value?: number) => void;
   defaultOptionName?: string;
-  options?: { name: string; id: string | number }[]; // 待优化 ？？？
+  options?: { name: string; id: number }[];
 }
 
 /**
