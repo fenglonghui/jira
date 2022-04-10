@@ -2,7 +2,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-10 17:59:25
+ * @LastEditTime: 2022-04-10 19:06:45
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -25,6 +25,15 @@ import { ProjectPopover } from "components/project-popover";
 export const AuthenticatedApp = () => {
   // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
   const [projectModalOpen, setProjectModalOpen] = useState(false);
+  // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
+  // 组合组件(projectButton)改造
+  // const projectButton=
+  //           <ButtonNoPadding
+  //             type="link"
+  //             onClick={() => setProjectModalOpen(true)}
+  //           >
+  //             创建项目
+  //       </ButtonNoPadding>
 
   return (
     <Container>

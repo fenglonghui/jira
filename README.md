@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-10 16:00:31
+ * @LastEditTime: 2022-04-10 18:09:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -590,6 +590,7 @@ npx msw init public
         首页菜单-创建项目、列表编辑、header中创建项目 都共同控制同一个模态窗打开或关闭
 
         1. 创建 模态窗 project-modal.tsx
+            Popover，Drawer，Dropdown，Menu
         2. 创建 popover下拉菜单
 
     2. 状态提升, 实现共享状态， 多个组件能共同操作某个组件
