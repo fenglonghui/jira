@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-10 19:46:36
+ * @LastEditTime: 2022-04-10 19:56:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -629,6 +629,9 @@ npx msw init public
     4. redux的使用， react-redux， redux-thunk， redux-toolkit的使用介绍
 
         原则上规定，redux 的 reducer 是同步的（为了对状态管理保持可预测性和纯洁性，一个输入必然对应一个输出），但也支持异步，即 redux 是支持异步的，不过没人把异步操作细节写在reducer中来执行，而是使用中间件Redux-thunk来处理异步函数逻辑，最终转换为同步的action来执行
+
+    5. 安装redux-thunk
+        yarn add redux-thunk
 
 # 十四. 项目运行调试、编译、发布打包
 
