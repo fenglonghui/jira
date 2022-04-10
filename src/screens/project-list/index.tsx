@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-08 12:44:38
+ * @LastEditTime: 2022-04-10 17:49:51
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -11,14 +11,16 @@ import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "utils";
 import styled from "@emotion/styled";
-import { Typography } from "antd";
+import { Button, Row, Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";
 // import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParam } from "./util";
 
-export const ProjectListScreen = () => {
+export const ProjectListScreen = (props: {
+  setProjectModalOpen: (isOpen: boolean) => void;
+}) => {
   useDocumentTitle("项目列表", false);
   // const [keys] = useState<('name' | 'personId')[]>(['name', 'personId']);
 
@@ -40,7 +42,19 @@ export const ProjectListScreen = () => {
 
   return (
     <Container>
-      <h1>项目列表</h1>
+      <Row
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <h1>项目列表</h1>
+        <Button type="link" onClick={() => props.setProjectModalOpen(true)}>
+          创建项目
+        </Button>
+      </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
@@ -50,6 +64,7 @@ export const ProjectListScreen = () => {
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
+        setProjectModalOpen={props.setProjectModalOpen}
       />
     </Container>
   );

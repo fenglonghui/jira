@@ -1,18 +1,19 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-08 12:43:58
+ * @LastEditTime: 2022-04-10 17:56:10
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
  */
 import React from "react";
-import { Table, TableProps } from "antd";
+import { Dropdown, Menu, Table, TableProps } from "antd";
 import { User } from "./search-panel";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
+import { ButtonNoPadding } from "components/lib";
 
 export interface Project {
   id: number;
@@ -25,6 +26,7 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
+  setProjectModalOpen: (isOpen: boolean) => void;
   refresh?: () => void;
 }
 
@@ -36,7 +38,7 @@ interface ListProps extends TableProps<Project> {
 // pinProject(project.id, pin);
 // }} />
 
-export const List = ({ users, ...props }: ListProps) => {
+export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
   // hook函数必须放在顶层或hook函数中
   const { mutate } = useEditProject();
 
@@ -95,6 +97,33 @@ export const List = ({ users, ...props }: ListProps) => {
                   ? dayjs(project.created).format("YYYY-MM-DD")
                   : "无"}
               </span>
+            );
+          },
+        },
+        {
+          render(value, project) {
+            return (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key={"edit"}>
+                      <ButtonNoPadding
+                        type={"link"}
+                        onClick={() => setProjectModalOpen(true)}
+                      >
+                        编辑
+                      </ButtonNoPadding>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <ButtonNoPadding
+                  type={"link"}
+                  onClick={() => setProjectModalOpen(true)}
+                >
+                  ...
+                </ButtonNoPadding>
+              </Dropdown>
             );
           },
         },

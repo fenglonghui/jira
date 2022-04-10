@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-09 11:27:59
+ * @LastEditTime: 2022-04-10 16:00:31
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -491,7 +491,7 @@ npx msw init public
 
         5. useState传入的参数为函数时,被认为是惰性初始state，一上来就执行该函数，会认为数函数里运行的是一些昂贵的很耗性能的任务，执行一次之后，无论页面怎么刷新渲染都不再执行, 除非调用 set相关方法改变参数函数，才会再执行
 
-            // 惰性初始化
+            // 惰性初始化(懒初始化)
             const [retry, setRetry] = useState(() => {
                 alert('init');
             })
@@ -586,7 +586,13 @@ npx msw init public
 
 # 十三. 优化并解决问题
 
-    1. 状态提升, 实现共享状态， 多个组件能共同操作某个组件
+    1. 开发创建项目-模态窗
+        首页菜单-创建项目、列表编辑、header中创建项目 都共同控制同一个模态窗打开或关闭
+
+        1. 创建 模态窗 project-modal.tsx
+        2. 创建 popover下拉菜单
+
+    2. 状态提升, 实现共享状态， 多个组件能共同操作某个组件
 
         缺点问题：1. props属性下钻
                 2. 根组件定义的属性方法需要传递到子组件去消费，子组件不能随意使用，必须按照根组件的定义规则使用
@@ -594,7 +600,7 @@ npx msw init public
 
                 3. 这种问题的本质就是： 定义地方和使用(调用)的地方 太远
 
-    2. 组件组合和控制翻转(俗称IOC)
+    3. 组件组合和控制翻转(俗称IOC)
         组件组合（component compositioin）react官网推荐，在考虑context之前，有时候使用组件组合（component compositioin）会比 使用context效果更好
 
             在根组件中定义统一标准的属性方法，让子组件直接消费这些属性方法（组件绑定），然后将这个子组件传递到最底层，实现同样的视图效果
@@ -619,7 +625,7 @@ npx msw init public
     c. 组合组件 在逻辑上实现了控制翻转，即Ioc， 这是一种模式，实现解耦
 
 
-    3. redux的使用
+    4. redux的使用， react-redux， redux-thunk， redux-toolkit的使用介绍
 
 # 十四. 项目运行调试、编译、发布打包
 
