@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-10 17:56:10
+ * @LastEditTime: 2022-04-10 22:11:01
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
+import { useDispatch } from "react-redux";
+import { projectListActions } from "./project-list.slice";
 
 export interface Project {
   id: number;
@@ -26,7 +28,6 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
-  setProjectModalOpen: (isOpen: boolean) => void;
   refresh?: () => void;
 }
 
@@ -38,7 +39,7 @@ interface ListProps extends TableProps<Project> {
 // pinProject(project.id, pin);
 // }} />
 
-export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
+export const List = ({ users, ...props }: ListProps) => {
   // hook函数必须放在顶层或hook函数中
   const { mutate } = useEditProject();
 
@@ -46,6 +47,8 @@ export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
   // 函数柯理化改造
   const pinProject = (id: number) => (pin: boolean) =>
     mutate({ id, pin }).then(props.refresh);
+
+  const dispatch = useDispatch();
 
   return (
     <Table
@@ -109,7 +112,9 @@ export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
                     <Menu.Item key={"edit"}>
                       <ButtonNoPadding
                         type={"link"}
-                        onClick={() => setProjectModalOpen(true)}
+                        onClick={() =>
+                          dispatch(projectListActions.openProjectModal())
+                        }
                       >
                         编辑
                       </ButtonNoPadding>
@@ -117,12 +122,7 @@ export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
                   </Menu>
                 }
               >
-                <ButtonNoPadding
-                  type={"link"}
-                  onClick={() => setProjectModalOpen(true)}
-                >
-                  ...
-                </ButtonNoPadding>
+                <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
               </Dropdown>
             );
           },

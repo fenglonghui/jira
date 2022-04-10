@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-10 17:49:51
+ * @LastEditTime: 2022-04-10 22:14:15
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -17,10 +17,10 @@ import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";
 // import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParam } from "./util";
+import { useDispatch } from "react-redux";
+import { projectListActions } from "./project-list.slice";
 
-export const ProjectListScreen = (props: {
-  setProjectModalOpen: (isOpen: boolean) => void;
-}) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
   // const [keys] = useState<('name' | 'personId')[]>(['name', 'personId']);
 
@@ -39,6 +39,7 @@ export const ProjectListScreen = (props: {
     retry,
   } = useProjects(useDebounce(param, 1000)); // 防抖的使用  传参 param 进来
   const { data: users } = useUsers();
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -51,7 +52,10 @@ export const ProjectListScreen = (props: {
         }}
       >
         <h1>项目列表</h1>
-        <Button type="link" onClick={() => props.setProjectModalOpen(true)}>
+        <Button
+          type="link"
+          onClick={() => dispatch(projectListActions.openProjectModal())}
+        >
           创建项目
         </Button>
       </Row>
@@ -64,7 +68,6 @@ export const ProjectListScreen = (props: {
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
-        setProjectModalOpen={props.setProjectModalOpen}
       />
     </Container>
   );

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-10 19:56:36
+ * @LastEditTime: 2022-04-10 22:29:34
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -631,7 +631,80 @@ npx msw init public
         原则上规定，redux 的 reducer 是同步的（为了对状态管理保持可预测性和纯洁性，一个输入必然对应一个输出），但也支持异步，即 redux 是支持异步的，不过没人把异步操作细节写在reducer中来执行，而是使用中间件Redux-thunk来处理异步函数逻辑，最终转换为同步的action来执行
 
     5. 安装redux-thunk
-        yarn add redux-thunk
+         yarn add redux-thunk
+        安装redux-tookit
+        yarn add react-redux @reduxjs/toolkit
+
+        1. src/新建store文件夹 index.tsx
+
+```
+        import {configureStore} from '@reduxjs/toolkit';
+        import { projectListSlice } from 'screens/project-list/project-list.slice';
+
+        export const rootReducer = {
+            projectList: projectListSlice.reducer
+        }
+
+        export const store = configureStore({
+            reducer: rootReducer
+        })
+
+        export const AppDispatch = typeof store.dispatch
+
+        export type RootState = ReturnType<typeof store.getState>
+
+```
+
+        2. project-list.slice.ts
+
+```
+        import { createSlice } from "@reduxjs/toolkit"
+
+
+        // 定义状类型 State
+        interface State {
+            projectModalOpen: boolean
+        }
+
+        // 默认状态树 initialState
+        const initialState: State = {
+            projectModalOpen: false
+        }
+
+        // 创建slice（reducer）
+        export const projectListSlice = createSlice({
+            name: "projectListSlice",
+            initialState,
+            reducers: {
+                openProjectModal(state, action){
+                    state.projectModalOpen = true
+                },
+                closeProjectModal(state, action){
+                    state.projectModalOpen = false
+                }
+            }
+        })
+
+
+        // actions
+        export const projectListActions = projectListSlice.actions
+
+```
+
+        3. redux 关于project-list的状态配置完成
+            接下来改造代码中，关于模态窗状态管理的部分（使用redux操作模态窗）
+
+            // 通过hook 使用Redux的 dipatch
+            a. const dispatch = useDispatch();
+            b. dispatch(projectListActions.openProjectModal())
+            c.
+                import { useDispatch, useSelector } from "react-redux";
+
+                // select
+                export const selectProjectModalOpen = (state: RootState) => state.projectList.projectModalOpen
+
+                const projectModalOpen = useSelector(selectProjectModalOpen);
+                visible={projectModalOpen}
 
 # 十四. 项目运行调试、编译、发布打包
 

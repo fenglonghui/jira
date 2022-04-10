@@ -2,7 +2,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-10 19:06:45
+ * @LastEditTime: 2022-04-10 22:18:56
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -24,7 +24,7 @@ import { ProjectPopover } from "components/project-popover";
 
 export const AuthenticatedApp = () => {
   // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  // const [projectModalOpen, setProjectModalOpen] = useState(false);
   // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
   // 组合组件(projectButton)改造
   // const projectButton=
@@ -37,37 +37,22 @@ export const AuthenticatedApp = () => {
 
   return (
     <Container>
-      <PageHeader setProjectModalOpen={setProjectModalOpen} />
+      <PageHeader />
       <Main>
         <Router>
           <Routes>
-            <Route
-              path={"projects"}
-              element={
-                <ProjectListScreen setProjectModalOpen={setProjectModalOpen} />
-              }
-            />
+            <Route path={"projects"} element={<ProjectListScreen />} />
             <Route path={"projects/:projectId/*"} element={<ProjectScreen />} />
-            <Route
-              index
-              element={
-                <ProjectListScreen setProjectModalOpen={setProjectModalOpen} />
-              }
-            />
+            <Route index element={<ProjectListScreen />} />
           </Routes>
         </Router>
       </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        onClose={() => setProjectModalOpen(false)}
-      />
+      <ProjectModal />
     </Container>
   );
 };
 
-const PageHeader = (props: {
-  setProjectModalOpen: (isopen: boolean) => void;
-}) => {
+const PageHeader = () => {
   const { logout, user } = useAuth();
 
   return (
@@ -77,7 +62,7 @@ const PageHeader = (props: {
         <ButtonNoPadding type="link" onClick={resetRoute}>
           <SoftWareLogo width={"18rem"} color={"rgb(38, 132,255)"} />
         </ButtonNoPadding>
-        <ProjectPopover setProjectModalOpen={props.setProjectModalOpen} />
+        <ProjectPopover />
         <span>用户</span>
       </HeaderLeft>
       <HeaderRight>
