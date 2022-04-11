@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-10 16:01:42
- * @LastEditTime: 2022-04-10 17:24:34
+ * @LastEditTime: 2022-04-11 16:43:18
  * @LastEditors: Please set LastEditors
  * @Description: popover 鼠标移上去，下拉菜单显示出来
  * @FilePath: /jira/src/components/popover.tsx
@@ -24,7 +24,7 @@ export const ProjectPopover = (props: {
       <Typography.Text type="secondary">收藏项目</Typography.Text>
       <List>
         {pinnedProjects?.map((project) => (
-          <List.Item>
+          <List.Item key={project.id}>
             <List.Item.Meta title={project.name} />
           </List.Item>
         ))}
