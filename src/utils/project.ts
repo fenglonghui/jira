@@ -1,15 +1,14 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-08 18:37:05
+ * @LastEditTime: 2022-04-11 21:28:43
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/utils/projects.ts
  */
 
-import { useCallback, useEffect } from "react";
+import { useQuery } from "react-query";
 import { Project } from "screens/project-list/list";
-import { cleanObject } from "utils";
 import { useHttp } from "./http";
 import { useAsync } from "./use-async";
 
@@ -20,20 +19,11 @@ import { useAsync } from "./use-async";
  */
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
-  const { run, ...result } = useAsync<Project[]>();
 
-  // 网络请求回调
-  const fetchProjects = useCallback(
-    () => client("projects", { data: cleanObject(param || {}) }),
-    [client, param]
+  // param 为依赖项（param发生变化，useQuery重新调用）
+  return useQuery<Project[]>(["projects", param], () =>
+    client("projects", { data: param })
   );
-
-  useEffect(() => {
-    // 网络请求列表 Project[]
-    run(fetchProjects(), { retry: fetchProjects });
-  }, [fetchProjects, param, run]);
-
-  return result;
 };
 
 // 请求收藏接口, 点击收藏或取消，调用收藏或取消网络接口，得到数据

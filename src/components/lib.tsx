@@ -1,7 +1,7 @@
 /*
  * @Author: 组件库
  * @Date: 2022-04-04 15:03:11
- * @LastEditTime: 2022-04-10 17:10:53
+ * @LastEditTime: 2022-04-11 21:19:58
  * @LastEditors: Please set LastEditors
  * @Description: 使用emotion变量来动态表达css属性值
  * @FilePath: /jira/src/components/lib.ts
@@ -50,10 +50,21 @@ export const FullPageLoading = () => (
 export const FullPageErrorFallback = ({ error }: { error: Error | null }) => (
   <FullPage>
     <DevTools />
-    <Typography.Text type="danger">{error?.message}</Typography.Text>
+    <ErrorBox error={error} />
   </FullPage>
 );
 
 export const ButtonNoPadding = styled(Button)`
   padding: 0;
 `;
+
+// 类型守卫
+const isError = (value: any): value is Error => value?.message;
+
+export const ErrorBox = ({ error }: { error: unknown }) => {
+  // error: unknown 不能直接取值
+  if (isError(error)) {
+    return <Typography.Text type={"danger"}>{error?.message}</Typography.Text>;
+  }
+  return null;
+};

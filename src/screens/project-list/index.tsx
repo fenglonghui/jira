@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-10 17:49:51
+ * @LastEditTime: 2022-04-11 21:23:24
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -17,6 +17,7 @@ import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";
 // import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParam } from "./util";
+import { ErrorBox } from "components/lib";
 
 export const ProjectListScreen = (props: {
   setProjectModalOpen: (isOpen: boolean) => void;
@@ -36,7 +37,6 @@ export const ProjectListScreen = (props: {
     isLoading,
     error,
     data: list,
-    retry,
   } = useProjects(useDebounce(param, 1000)); // 防抖的使用  传参 param 进来
   const { data: users } = useUsers();
 
@@ -56,11 +56,8 @@ export const ProjectListScreen = (props: {
         </Button>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
-      {error ? (
-        <Typography.Text type={"danger"}>{error.message}</Typography.Text>
-      ) : null}
+      <ErrorBox error={error} />
       <List
-        refresh={retry}
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
