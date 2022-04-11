@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-04-10 20:57:27
- * @LastEditTime: 2022-04-10 22:32:45
+ * @LastEditTime: 2022-04-11 10:49:24
  * @LastEditors: Please set LastEditors
- * @Description: project-list 相关的reducer
+ * @Description: project-list 相关的 slice
  * @FilePath: /jira/src/screens/project-list/project-list.slice.ts
  */
 

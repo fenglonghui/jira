@@ -1,24 +1,27 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:34:21
- * @LastEditTime: 2022-04-07 16:29:16
+ * @LastEditTime: 2022-04-11 12:22:40
  * @LastEditors: Please set LastEditors
  * @Description: Context上下文的创建、使用（代替之前redux）
  * @FilePath: /jira/src/context/auth-context.tsx
  */
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import * as auth from "auth-provider";
 import { User } from "screens/project-list/search-panel";
 import { http } from "utils/http";
 import { useMount } from "utils";
+import * as authStore from "store/auth.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { useAsync } from "utils/use-async";
 
-interface AuthForm {
+export interface AuthForm {
   username: string;
   password: string;
 }
 
 // 初始化用户信息
-const bootstrapUser = async () => {
+export const bootstrapUser = async () => {
   let user = null;
   const token = auth.getToken();
   if (token) {
@@ -29,48 +32,47 @@ const bootstrapUser = async () => {
   return user;
 };
 
-// 1. 创建Context上下文
-const AuthContext = React.createContext<
-  | {
-      user: User | null;
-      login: (form: AuthForm) => Promise<void>;
-      register: (form: AuthForm) => Promise<void>;
-      logout: () => Promise<void>;
-    }
-  | undefined
->(undefined);
-
-// 给Context上下文命名
-AuthContext.displayName = "AuthContext";
-
 // 2. 定义Context上下文Provider组件
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // 维护当前登录用户信息
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    data: user,
+    error,
+    isLoading,
+    isIdle,
+    isError,
+    run,
+  } = useAsync<User | null>();
 
-  const login = (form: AuthForm) => auth.login(form).then(setUser);
-  const register = (form: AuthForm) => auth.register(form).then(setUser);
-  const logout = () => auth.logout().then(() => setUser(null));
+  const dispatch: (...args: unknown[]) => Promise<User> = useDispatch();
 
   useMount(() => {
     // 初始化用户信息
-    bootstrapUser().then(setUser);
+    run(dispatch(authStore.bootstrap()));
   });
 
-  return (
-    <AuthContext.Provider
-      children={children}
-      value={{ user, login, register, logout }}
-    />
-  );
+  return <div>{children}</div>;
 };
 
-// 3. 获取Context上下文对象
+// 使用redux thunk
 export const useAuth = () => {
-  const context = React.useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth必须在AuthProvider中使用");
-  }
+  // dispatch 类型转换处理
+  const dispatch: (...args: unknown[]) => Promise<User> = useDispatch();
+  const user = useSelector(authStore.selectUser);
 
-  return context;
+  const login = useCallback(
+    (form: AuthForm) => dispatch(authStore.login(form)),
+    [dispatch]
+  );
+  const register = useCallback(
+    (form: AuthForm) => dispatch(authStore.register(form)),
+    [dispatch]
+  );
+  const logout = useCallback(() => dispatch(authStore.logout()), [dispatch]);
+
+  return {
+    user,
+    login,
+    register,
+    logout,
+  };
 };

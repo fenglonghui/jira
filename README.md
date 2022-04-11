@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-10 22:29:34
+ * @LastEditTime: 2022-04-11 11:28:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -689,6 +689,9 @@ npx msw init public
         // actions
         export const projectListActions = projectListSlice.actions
 
+        // select
+        export const selectProjectModalOpen = (state: RootState) => state.projectList.projectModalOpen
+
 ```
 
         3. redux 关于project-list的状态配置完成
@@ -697,7 +700,7 @@ npx msw init public
             // 通过hook 使用Redux的 dipatch
             a. const dispatch = useDispatch();
             b. dispatch(projectListActions.openProjectModal())
-            c.
+            c. 代码中使用redux
                 import { useDispatch, useSelector } from "react-redux";
 
                 // select
@@ -705,6 +708,10 @@ npx msw init public
 
                 const projectModalOpen = useSelector(selectProjectModalOpen);
                 visible={projectModalOpen}
+
+        4. react-thunk(redux异步操作) 管理登录状态
+
+            配置 auth.slice.ts
 
 # 十四. 项目运行调试、编译、发布打包
 
