@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-07 12:37:34
- * @LastEditTime: 2022-04-12 16:25:43
+ * @LastEditTime: 2022-04-12 17:47:31
  * @LastEditors: Please set LastEditors
  * @Description:项目列表搜索参数
  * @FilePath: /jira/src/screens/project-list/util.ts
@@ -25,6 +25,15 @@ export const useProjectSearchParam = () => {
     ),
     setParam,
   ] as const;
+};
+
+/**
+ *  获取 query key
+ * @returns
+ */
+export const useProjectsQueryKey = () => {
+  const [params] = useProjectSearchParam();
+  return ["projects", params];
 };
 
 /**
