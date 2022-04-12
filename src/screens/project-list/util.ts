@@ -1,14 +1,14 @@
 /*
  * @Author: flh
  * @Date: 2022-04-07 12:37:34
- * @LastEditTime: 2022-04-12 17:47:31
+ * @LastEditTime: 2022-04-12 19:53:47
  * @LastEditors: Please set LastEditors
  * @Description:项目列表搜索参数
  * @FilePath: /jira/src/screens/project-list/util.ts
  */
 import { useMemo } from "react";
 import { useProject } from "utils/project";
-import { useUrlQueryParam } from "utils/url";
+import { useSetUrlSearchParam, useUrlQueryParam } from "utils/url";
 
 // 项目列表搜索参数
 export const useProjectSearchParam = () => {
@@ -51,15 +51,15 @@ export const useProjectModal = () => {
     "editingProjectId",
   ]);
 
+  const setUrlParams = useSetUrlSearchParam();
+
   const { data: editingProject, isLoading } = useProject(
     Number(editingProjectId)
   );
 
   const open = () => setProjectCreate({ projectCreate: true });
-  const close = () =>
-    projectCreate
-      ? setProjectCreate({ projectCreate: undefined })
-      : setEditingProjectId({ editingProjectId: undefined });
+  // const close = () => projectCreate ? setProjectCreate({ projectCreate: undefined }) : setEditingProjectId({ editingProjectId: undefined });
+  const close = () => setUrlParams({ projectCreate: "", editingProjectId: "" });
   const startEdit = (id: number) =>
     setEditingProjectId({ editingProjectId: id });
 
