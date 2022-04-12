@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-12 10:27:23
+ * @LastEditTime: 2022-04-12 12:36:50
  * @LastEditors: Please set LastEditors
  * @Description:
  *   useQuery 用于get请求
@@ -12,6 +12,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Project } from "screens/project-list/list";
+import { useProjectSearchParam } from "screens/project-list/util";
 import { useHttp } from "./http";
 import { useAsync } from "./use-async";
 
@@ -41,6 +42,11 @@ export const useEditProject = () => {
   const client = useHttp();
   const queryClient = useQueryClient();
 
+  // querykey：{key: value}
+  const [searchParams] = useProjectSearchParam();
+  // 获取 querykey
+  const queryKey = ["projects", searchParams];
+
   return useMutation(
     (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
@@ -48,7 +54,28 @@ export const useEditProject = () => {
         data: params,
       }),
     {
-      onSuccess: () => queryClient.invalidateQueries("projects"), // 请求后即时刷新缓存数据
+      // 请求后即时刷新缓存数据
+      onSuccess: () => queryClient.invalidateQueries("projects"),
+      // useMutation一发生，就立马调用 onMutate
+      async onMutate(target) {
+        // 获取 querykey 对应的缓存
+        const previousItems = queryClient.getQueryData(queryKey);
+        // 修改缓存
+        queryClient.setQueryData(queryKey, (old?: Project[]) => {
+          return (
+            old?.map((oldProject) =>
+              oldProject.id === target.id
+                ? { ...oldProject, ...target }
+                : { ...oldProject }
+            ) || []
+          );
+        });
+
+        return { previousItems };
+      },
+      onError(error, nextItem, context: any) {
+        queryClient.invalidateQueries(queryKey, context?.previousItems);
+      },
     }
   );
 };

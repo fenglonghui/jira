@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-12 10:14:50
+ * @LastEditTime: 2022-04-12 12:42:49
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -45,7 +45,7 @@ export const List = ({ users, ...props }: ListProps) => {
 
   // const pinProject = (id: number, pin: boolean) => mutate({id, pin})
   // 函数柯理化改造
-  // const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
   const editProject = (id: number) => () => startEdit(id);
 
   return (
@@ -56,7 +56,12 @@ export const List = ({ users, ...props }: ListProps) => {
         {
           title: <Pin checked={true} disabled={true} />,
           render(value, project) {
-            return <Pin checked={project.pin} onCheckedChange={() => {}} />;
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={pinProject(project.id)}
+              />
+            );
           },
         },
         {

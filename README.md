@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-11 21:52:01
+ * @LastEditTime: 2022-04-12 11:26:26
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -644,7 +644,11 @@ npx msw init public
     useQuery 是给get请求用的，
     其他请求用useMutation
 
-    // 乐观更新
+    乐观更新思路：
+        1. 在异步请求返回之前，修改本地缓存数据，
+        2. 要修改本地缓存数据，必须要先获取本地对应的缓存数据
+    收藏列表要实现乐观更新
+        就要修改 useEditProject 函数
 
 # 十四. 项目运行调试、编译、发布打包
 
