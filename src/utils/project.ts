@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-12 12:36:50
+ * @LastEditTime: 2022-04-12 16:48:02
  * @LastEditors: Please set LastEditors
  * @Description:
  *   useQuery 用于get请求
@@ -55,7 +55,7 @@ export const useEditProject = () => {
       }),
     {
       // 请求后即时刷新缓存数据
-      onSuccess: () => queryClient.invalidateQueries("projects"),
+      onSuccess: () => queryClient.invalidateQueries(queryKey),
       // useMutation一发生，就立马调用 onMutate
       async onMutate(target) {
         // 获取 querykey 对应的缓存
@@ -74,7 +74,11 @@ export const useEditProject = () => {
         return { previousItems };
       },
       onError(error, nextItem, context: any) {
-        queryClient.invalidateQueries(queryKey, context?.previousItems);
+        //  出错回滚
+        queryClient.setQueryData(
+          queryKey,
+          (context as { previousItems: Project[] }).previousItems
+        );
       },
     }
   );

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-07 12:37:34
- * @LastEditTime: 2022-04-12 12:53:13
+ * @LastEditTime: 2022-04-12 16:25:43
  * @LastEditors: Please set LastEditors
  * @Description:项目列表搜索参数
  * @FilePath: /jira/src/screens/project-list/util.ts
@@ -42,14 +42,15 @@ export const useProjectModal = () => {
     "editingProjectId",
   ]);
 
-  // 根据id，获取对应的项目详情信息
   const { data: editingProject, isLoading } = useProject(
     Number(editingProjectId)
   );
 
   const open = () => setProjectCreate({ projectCreate: true });
-  const close = () => setEditingProjectId({ editingProjectId: undefined });
-
+  const close = () =>
+    projectCreate
+      ? setProjectCreate({ projectCreate: undefined })
+      : setEditingProjectId({ editingProjectId: undefined });
   const startEdit = (id: number) =>
     setEditingProjectId({ editingProjectId: id });
 
