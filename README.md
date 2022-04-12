@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-11 16:47:58
+ * @LastEditTime: 2022-04-11 21:52:01
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -638,6 +638,11 @@ npx msw init public
 
     // 更新 jira-dev-tool
     yarn remove jira-dev-tool && yarn add jira-dev-tool@next
+
+    react-query 最擅长的就是获取列表数据
+
+    useQuery 是给get请求用的，
+    其他请求用useMutation
 
     // 乐观更新
 

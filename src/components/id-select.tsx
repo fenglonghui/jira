@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-06 21:54:07
- * @LastEditTime: 2022-04-08 07:56:56
+ * @LastEditTime: 2022-04-12 09:40:06
  * @LastEditors: Please set LastEditors
  * @Description: 封装 Select 组件
  * @FilePath: /jira/src/components/id-select.tsx
@@ -15,8 +15,8 @@ type SelectProps = React.ComponentProps<typeof Select>;
 
 interface IdSelectProps
   extends Omit<SelectProps, "value" | "onChange" | "options"> {
-  value: Raw | undefined | null;
-  onChange: (value?: number) => void;
+  value?: Raw | undefined | null;
+  onChange?: (value?: number) => void;
   defaultOptionName?: string;
   options?: { name: string; id: number }[];
 }
@@ -33,7 +33,7 @@ export const IdSelect = (props: IdSelectProps) => {
   return (
     <Select
       value={options?.length ? toNumber(value) : 0}
-      onChange={(val) => onChange(toNumber(val) || undefined)}
+      onChange={(val) => onChange?.(toNumber(val) || undefined)}
       {...restProps}
     >
       {defaultOptionName ? (

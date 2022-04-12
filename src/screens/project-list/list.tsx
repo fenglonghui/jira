@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-10 17:56:10
+ * @LastEditTime: 2022-04-12 10:14:50
  * @LastEditors: Please set LastEditors
  * @Description: 查询列表
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
+import { useProjectModal } from "./util";
 
 export interface Project {
   id: number;
@@ -26,8 +27,6 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
-  setProjectModalOpen: (isOpen: boolean) => void;
-  refresh?: () => void;
 }
 
 // return <Pin checked={project.pin} onCheckedChange={ pin => {
@@ -38,14 +37,16 @@ interface ListProps extends TableProps<Project> {
 // pinProject(project.id, pin);
 // }} />
 
-export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
+export const List = ({ users, ...props }: ListProps) => {
   // hook函数必须放在顶层或hook函数中
   const { mutate } = useEditProject();
 
+  const { startEdit } = useProjectModal();
+
   // const pinProject = (id: number, pin: boolean) => mutate({id, pin})
   // 函数柯理化改造
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refresh);
+  // const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
+  const editProject = (id: number) => () => startEdit(id);
 
   return (
     <Table
@@ -55,12 +56,7 @@ export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
         {
           title: <Pin checked={true} disabled={true} />,
           render(value, project) {
-            return (
-              <Pin
-                checked={project.pin}
-                onCheckedChange={pinProject(project.id)}
-              />
-            );
+            return <Pin checked={project.pin} onCheckedChange={() => {}} />;
           },
         },
         {
@@ -106,23 +102,14 @@ export const List = ({ users, setProjectModalOpen, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>
-                      <ButtonNoPadding
-                        type={"link"}
-                        onClick={() => setProjectModalOpen(true)}
-                      >
-                        编辑
-                      </ButtonNoPadding>
+                    <Menu.Item key={"edit"} onClick={editProject(project.id)}>
+                      编辑
                     </Menu.Item>
+                    <Menu.Item key={"delete"}>删除</Menu.Item>
                   </Menu>
                 }
               >
-                <ButtonNoPadding
-                  type={"link"}
-                  onClick={() => setProjectModalOpen(true)}
-                >
-                  ...
-                </ButtonNoPadding>
+                <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
               </Dropdown>
             );
           },

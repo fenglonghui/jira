@@ -1,12 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-07 12:37:34
- * @LastEditTime: 2022-04-07 15:35:55
+ * @LastEditTime: 2022-04-12 10:30:49
  * @LastEditors: Please set LastEditors
  * @Description:项目列表搜索参数
  * @FilePath: /jira/src/screens/project-list/util.ts
  */
 import { useMemo } from "react";
+import { useProject } from "utils/project";
 import { useUrlQueryParam } from "utils/url";
 
 // 项目列表搜索参数
@@ -24,4 +25,47 @@ export const useProjectSearchParam = () => {
     ),
     setParam,
   ] as const;
+};
+
+/**
+ * 关于模态窗的hook（扮演全局状态管理器的功能，可以替代redux context）
+ * @returns
+ */
+export const useProjectModal = () => {
+  // 获取url中对应的projectCreate的值
+  const [{ projectCreate }, setProjectCreate] = useUrlQueryParam([
+    "projectCreate",
+  ]);
+
+  // 获取url中对应的editingProjectId的值
+  const [{ editingProjectId }, setEditingProjectId] = useUrlQueryParam([
+    "editingProjectId",
+  ]);
+
+  // 根据id，获取对应的项目详情信息
+  const { data: editingProject, isLoading } = useProject(
+    Number(editingProjectId)
+  );
+
+  const open = () => setProjectCreate({ projectCreate: true });
+  const close = () => setEditingProjectId({ editingProjectId: undefined });
+
+  const startEdit = (id: number) =>
+    setEditingProjectId({ editingProjectId: id });
+
+  // tuple 类型（三个属性以内用tuple数组，三个属性以上用对对象）
+  // return [
+  //   projectCreate === 'true',
+  //   open,
+  //   close
+  // ] as const
+
+  return {
+    projectModalOpen: projectCreate === "true" || !!editingProjectId,
+    open,
+    close,
+    startEdit,
+    editingProject,
+    isLoading,
+  };
 };

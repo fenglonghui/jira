@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-11 21:23:24
+ * @LastEditTime: 2022-04-11 22:33:24
  * @LastEditors: Please set LastEditors
  * @Description: 搜索+列表
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -16,12 +16,10 @@ import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";
 // import { useUrlQueryParam } from "utils/url";
-import { useProjectSearchParam } from "./util";
+import { useProjectModal, useProjectSearchParam } from "./util";
 import { ErrorBox } from "components/lib";
 
-export const ProjectListScreen = (props: {
-  setProjectModalOpen: (isOpen: boolean) => void;
-}) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
   // const [keys] = useState<('name' | 'personId')[]>(['name', 'personId']);
 
@@ -40,6 +38,8 @@ export const ProjectListScreen = (props: {
   } = useProjects(useDebounce(param, 1000)); // 防抖的使用  传参 param 进来
   const { data: users } = useUsers();
 
+  const { open } = useProjectModal();
+
   return (
     <Container>
       <Row
@@ -51,18 +51,13 @@ export const ProjectListScreen = (props: {
         }}
       >
         <h1>项目列表</h1>
-        <Button type="link" onClick={() => props.setProjectModalOpen(true)}>
+        <Button type="link" onClick={() => open()}>
           创建项目
         </Button>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       <ErrorBox error={error} />
-      <List
-        loading={isLoading}
-        dataSource={list || []}
-        users={users || []}
-        setProjectModalOpen={props.setProjectModalOpen}
-      />
+      <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };
