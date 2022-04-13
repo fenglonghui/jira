@@ -25,6 +25,12 @@ export const ProjectModal = () => {
   } = useMutateProject(useProjectsQueryKey());
   const [form] = useForm();
 
+  // 关闭
+  const closeModal = () => {
+    form.resetFields();
+    close();
+  };
+
   // editingProject 改变时，表单重置
   useEffect(() => {
     form.setFieldsValue(editingProject);
@@ -34,8 +40,7 @@ export const ProjectModal = () => {
   const onFinish = (values: any) => {
     mutateAsync({ ...editingProject, ...values }).then(() => {
       // 重置表单
-      form.resetFields();
-      close();
+      closeModal();
     });
   };
 
@@ -44,7 +49,7 @@ export const ProjectModal = () => {
       forceRender={true}
       visible={projectModalOpen}
       width={"100%"}
-      onClose={close}
+      onClose={closeModal}
     >
       <Container>
         {isLoading ? (
