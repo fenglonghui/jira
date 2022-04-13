@@ -1,21 +1,20 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:24:00
- * @LastEditTime: 2022-04-08 14:26:20
+ * @LastEditTime: 2022-04-13 11:06:12
  * @LastEditors: Please set LastEditors
- * @Description: 抽象用户列表
+ * @Description: 关于用户 hook
  * @FilePath: /jira/src/utils/user.ts
  */
 
 import { useEffect } from "react";
-import { User } from "screens/project-list/search-panel";
+import { User } from "types/user";
 import { cleanObject } from "utils";
 import { useHttp } from "./http";
 import { useAsync } from "./use-async";
-import { useQuery } from "react-query";
 
 /**
- * 用户数据请求
+ * 获取用户列表
  * @param param
  * @returns
  */

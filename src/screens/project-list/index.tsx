@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-11 22:33:24
+ * @LastEditTime: 2022-04-13 11:11:24
  * @LastEditors: Please set LastEditors
- * @Description: 搜索+列表
+ * @Description: 主页面（搜索， 项目列表）
  * @FilePath: /jira/src/screens/project-list/index.jsx
  */
 import React, { useState } from "react";

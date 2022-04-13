@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 22:21:46
- * @LastEditTime: 2022-04-08 18:36:12
+ * @LastEditTime: 2022-04-13 11:04:27
  * @LastEditors: Please set LastEditors
- * @Description: 抽取通用的网络请求
+ * @Description: 关于网络请求 hook
  *  注意：fetch请求 除了断网、网络连接失时会被catch捕获到，其他的异常像 4XX, 5XX等异常均不会被捕获到
  * @FilePath: /jira/src/utils/http.ts
  */

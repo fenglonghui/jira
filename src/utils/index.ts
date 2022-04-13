@@ -1,9 +1,9 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-08 15:23:36
+ * @LastEditTime: 2022-04-13 11:05:10
  * @LastEditors: Please set LastEditors
- * @Description: 公共函数/hook函数
+ * @Description: 公共的 hook
  * @FilePath: /jira/src/utils/index.ts
  */
 

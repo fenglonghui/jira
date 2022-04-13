@@ -3,22 +3,14 @@
  * @Date: 2022-03-30 17:17:36
  * @LastEditTime: 2022-04-04 15:51:05
  * @LastEditors: Please set LastEditors
- * @Description: 搜索面板
+ * @Description: 搜索面板组件
  * @FilePath: /jira/src/screens/project-list/search-panel.jsx
  */
 import React from "react";
 import { Form, Input } from "antd";
-import { Project } from "./list";
+import { Project } from "types/project";
 import { UserSelect } from "components/user-select";
-
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  title: string;
-  organization: string;
-  token: string;
-}
+import { User } from "types/user";
 
 // ts类型声明
 interface SearchPanelProps {

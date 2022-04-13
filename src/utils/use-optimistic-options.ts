@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2022-04-12 16:53:15
- * @LastEditTime: 2022-04-12 17:21:23
+ * @LastEditTime: 2022-04-13 11:07:09
  * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: 关于乐观更新的配置 hook
  * @FilePath: /jira/src/utils/use-optimistic-options.ts
  */
 
 import { QueryKey, useQueryClient } from "react-query";
-import { Project } from "screens/project-list/list";
+import { Project } from "types/project";
 
 export const useConfig = (
   queryKey: QueryKey,
@@ -42,6 +42,7 @@ export const useDeleteConfig = (queryKey: QueryKey) =>
     queryKey,
     (target, old) => old?.filter((item) => item.id !== target.id) || []
   );
+
 export const useEditConfig = (queryKey: QueryKey) =>
   useConfig(
     queryKey,
@@ -50,5 +51,6 @@ export const useEditConfig = (queryKey: QueryKey) =>
         item.id === target.id ? { ...item, ...target } : item
       ) || []
   );
+
 export const useAddConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) => (old ? [...old, target] : [target]));

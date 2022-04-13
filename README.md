@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-13 09:46:25
+ * @LastEditTime: 2022-04-13 17:45:41
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -652,6 +652,9 @@ npx msw init public
         3. 修改bug
             创建项目-模态窗存在缓存数据， （表单清空属性，调用close）
             切换账户时，请求时间过长，可能把上一个账户的缓存数据短暂展示后显示又最新数据（在退出函数中，清空react-query中的所有缓存数据）
+
+        4. svg图片处理
+            https://www.svgminify.com/
 
 # 十四. 项目运行调试、编译、发布打包
 

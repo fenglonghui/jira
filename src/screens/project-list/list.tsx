@@ -1,29 +1,21 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-12 19:21:30
+ * @LastEditTime: 2022-04-13 11:11:46
  * @LastEditors: Please set LastEditors
- * @Description: 查询列表
+ * @Description: 项目列表组件
  * @FilePath: /jira/src/screens/project-list/list.jsx
  */
 import React from "react";
 import { Dropdown, Menu, Modal, Table, TableProps } from "antd";
-import { User } from "./search-panel";
+import { User } from "types/user";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
 import { useDeleteProject, useEditProject } from "utils/project";
 import { ButtonNoPadding } from "components/lib";
 import { useProjectModal, useProjectsQueryKey } from "./util";
-
-export interface Project {
-  id: number;
-  name: string;
-  personId: number;
-  pin: boolean;
-  organization: string;
-  created: number;
-}
+import { Project } from "types/project";
 
 interface ListProps extends TableProps<Project> {
   users: User[];

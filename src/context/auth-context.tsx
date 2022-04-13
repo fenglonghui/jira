@@ -1,14 +1,14 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:34:21
- * @LastEditTime: 2022-04-13 09:51:28
+ * @LastEditTime: 2022-04-13 10:25:02
  * @LastEditors: Please set LastEditors
  * @Description: Context上下文的创建、使用（代替之前redux）
  * @FilePath: /jira/src/context/auth-context.tsx
  */
 import React, { useState } from "react";
 import * as auth from "auth-provider";
-import { User } from "screens/project-list/search-panel";
+import { User } from "types/user";
 import { http } from "utils/http";
 import { useMount } from "utils";
 import { useQueryClient } from "react-query";

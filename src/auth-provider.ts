@@ -1,12 +1,12 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 19:11:08
- * @LastEditTime: 2022-04-07 17:31:48
+ * @LastEditTime: 2022-04-13 10:24:55
  * @LastEditors: Please set LastEditors
  * @Description: 真实环境中，如果使用firebase这种第三方的auth服务，本文件不需要开发者开发
  * @FilePath: /jira/src/auth-provider.ts
  */
-import { User } from "screens/project-list/search-panel";
+import { User } from "types/user";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

@@ -2,7 +2,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-11 22:43:39
+ * @LastEditTime: 2022-04-13 20:58:50
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -100,10 +100,8 @@ const Header = styled(Row)`
 
 const HeaderLeft = styled(Row)``;
 
-const HeaderRight = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const HeaderRight = styled.div``;
 const Main = styled.main`
-  height: calc(100vh - 6rem);
+  display: flex;
+  overflow: hidden;
 `;

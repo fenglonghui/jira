@@ -1,20 +1,19 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-12 19:19:55
+ * @LastEditTime: 2022-04-13 11:03:43
  * @LastEditors: Please set LastEditors
- * @Description:
- *   useQuery 用于get请求
- *   useMutation 用于其它请求
- *
+ * @Description: 关于项目 hook
  * @FilePath: /jira/src/utils/projects.ts
+ *
+ * 关于 react-query的说明：
+ *   1.useQuery用于 GET 请求
+ *   2.useMutation用于其它请求（POST， PUT， PATCH，DELETE）
  */
 
-import { QueryKey, useMutation, useQuery, useQueryClient } from "react-query";
-import { Project } from "screens/project-list/list";
-import { useProjectSearchParam } from "screens/project-list/util";
+import { QueryKey, useMutation, useQuery } from "react-query";
+import { Project } from "types/project";
 import { useHttp } from "./http";
-import { useAsync } from "./use-async";
 import {
   useAddConfig,
   useDeleteConfig,
@@ -22,7 +21,7 @@ import {
 } from "./use-optimistic-options";
 
 /**
- * 工程列表接口
+ * 项目列表
  * @param param
  * @returns
  */

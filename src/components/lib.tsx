@@ -1,7 +1,7 @@
 /*
  * @Author: 组件库
  * @Date: 2022-04-04 15:03:11
- * @LastEditTime: 2022-04-11 21:19:58
+ * @LastEditTime: 2022-04-13 18:55:40
  * @LastEditors: Please set LastEditors
  * @Description: 使用emotion变量来动态表达css属性值
  * @FilePath: /jira/src/components/lib.ts
@@ -68,3 +68,10 @@ export const ErrorBox = ({ error }: { error: unknown }) => {
   }
   return null;
 };
+
+export const ScreenContainer = styled.div`
+  padding: 3.2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
