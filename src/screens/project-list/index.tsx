@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-13 11:11:24
+ * @LastEditTime: 2022-04-13 21:35:04
  * @LastEditors: Please set LastEditors
  * @Description: 主页面（搜索， 项目列表）
  * @FilePath: /jira/src/screens/project-list/index.jsx
@@ -66,5 +66,8 @@ export const ProjectListScreen = () => {
 // ProjectListScreen.whyDidYouRender = true;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 3.2rem;
 `;

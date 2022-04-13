@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 20:31:00
- * @LastEditTime: 2022-04-13 21:04:41
+ * @LastEditTime: 2022-04-13 22:02:11
  * @LastEditors: Please set LastEditors
  * @Description: 项目面饭
  * @FilePath: /jira/src/screens/project/index.tsx
@@ -57,5 +57,6 @@ const Main = styled.div`
 
 const Container = styled.div`
   display: grid;
+  width: 100%;
   grid-template-columns: 16rem 1fr;
 `;
