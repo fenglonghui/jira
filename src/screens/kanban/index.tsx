@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 22:49:54
- * @LastEditTime: 2022-04-13 22:03:52
+ * @LastEditTime: 2022-04-13 23:08:35
  * @LastEditors: Please set LastEditors
  * @Description: 看板页面
  * @FilePath: /jira/src/screens/kanban/index.tsx
@@ -14,6 +14,7 @@ import React from "react";
 import { useDocumentTitle } from "utils";
 import { useKanbans } from "utils/kanban";
 import { useTasks } from "utils/task";
+import { CreateKanban } from "./create-kanban";
 import { KanbanColumn } from "./kanban-column";
 import { SearchPanel } from "./search-panel";
 import {
@@ -44,14 +45,16 @@ export const KanBanScreen = () => {
           {kanbans?.map((kanban) => (
             <KanbanColumn kanban={kanban} key={kanban.id} />
           ))}
+          <CreateKanban />
         </ColumContainer>
       )}
     </ScreenContainer>
   );
 };
 
-const ColumContainer = styled.div`
+export const ColumContainer = styled.div`
   display: flex;
   flex: 1;
-  overflow: scroll;
+  border-radius: 0.6rem;
+  overflow-x: scroll;
 `;

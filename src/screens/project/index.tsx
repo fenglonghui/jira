@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 20:31:00
- * @LastEditTime: 2022-04-13 22:02:11
+ * @LastEditTime: 2022-04-13 23:04:13
  * @LastEditors: Please set LastEditors
  * @Description: 项目面饭
  * @FilePath: /jira/src/screens/project/index.tsx
@@ -53,6 +53,7 @@ const Aside = styled.aside`
 const Main = styled.div`
   display: flex;
   box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 `;
 
 const Container = styled.div`
