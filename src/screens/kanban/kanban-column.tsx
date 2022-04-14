@@ -2,7 +2,7 @@
 /*
  * @Author: 看板组件
  * @Date: 2022-04-13 12:02:07
- * @LastEditTime: 2022-04-13 22:51:40
+ * @LastEditTime: 2022-04-14 10:54:52
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/screens/kanban/kanban-column.tsx
@@ -16,6 +16,7 @@ import taskIcon from "assets/task.svg";
 import bugIcon from "assets/bug.svg";
 import styled from "@emotion/styled";
 import { Card } from "antd";
+import { CreateTask } from "./create-task";
 
 const TaskIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -42,6 +43,7 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
             <TaskIcon id={task.typeId} />
           </Card>
         ))}
+        <CreateTask kanbanId={kanban.id} />
       </TaskContainer>
     </Container>
   );
