@@ -1,19 +1,24 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:59:12
- * @LastEditTime: 2022-04-14 09:58:58
+ * @LastEditTime: 2022-04-14 16:59:11
  * @LastEditors: Please set LastEditors
  * @Description: 关于任务组 hook
  * @FilePath: /jira/src/utils/task.ts
  */
 
 import { QueryKey, useMutation, useQuery } from "react-query";
+import { Project } from "types/project";
 import { Task } from "types/task";
 import { useHttp } from "./http";
-import { useAddConfig } from "./use-optimistic-options";
+import {
+  useAddConfig,
+  useDeleteConfig,
+  useEditConfig,
+} from "./use-optimistic-options";
 
 /**
- * 获取任务组列表
+ * 请求任务组列表
  * @param param
  * @returns
  */
@@ -27,7 +32,7 @@ export const useTasks = (param?: Partial<Task>) => {
 };
 
 /**
- * 看板中 - 新建任务
+ * 看板中 - 添加任务
  * @param queryKey
  * @returns
  */
@@ -41,5 +46,51 @@ export const useAddTask = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useAddConfig(queryKey)
+  );
+};
+
+/**
+ * 请求任务详情
+ * @param id
+ * @returns
+ */
+export const useTask = (id?: number) => {
+  const client = useHttp();
+  return useQuery<Task>(["task", { id }], () => client(`tasks/${id}`), {
+    enabled: Boolean(id), // 是否调用 useQuery
+  });
+};
+
+/**
+ * 编辑task
+ * @param querykey
+ * @returns
+ */
+export const useEditTask = (querykey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (params: Partial<Task>) =>
+      client(`tasks/${params.id}`, {
+        method: "PATCH",
+        data: params,
+      }),
+    useEditConfig(querykey)
+  );
+};
+
+/**
+ * 删除任务
+ * @param querykey
+ * @returns
+ */
+export const useDeleteTask = (querykey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    ({ id }: { id: number }) =>
+      client(`tasks/${id}`, {
+        method: "DELETE",
+      }),
+    useDeleteConfig(querykey)
   );
 };

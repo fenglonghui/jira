@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:52:27
- * @LastEditTime: 2022-04-13 22:26:24
+ * @LastEditTime: 2022-04-14 16:58:03
  * @LastEditors: Please set LastEditors
  * @Description: 关于看板 hook
  * @FilePath: /jira/src/utils/kanban.ts
@@ -10,7 +10,7 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Kanban } from "types/kanban";
 import { useHttp } from "./http";
-import { useAddConfig } from "./use-optimistic-options";
+import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
 
 /**
  * 获取看板列表
@@ -41,5 +41,22 @@ export const useAddKanban = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useAddConfig(queryKey)
+  );
+};
+
+/**
+ * 删除看板
+ * @param querykey
+ * @returns
+ */
+export const useDeleteKanban = (querykey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    ({ id }: { id: number }) =>
+      client(`kanbans/${id}`, {
+        method: "DELETE",
+      }),
+    useDeleteConfig(querykey)
   );
 };

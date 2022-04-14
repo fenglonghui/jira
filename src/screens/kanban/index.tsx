@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 22:49:54
- * @LastEditTime: 2022-04-13 23:08:35
+ * @LastEditTime: 2022-04-14 15:30:53
  * @LastEditors: Please set LastEditors
  * @Description: 看板页面
  * @FilePath: /jira/src/screens/kanban/index.tsx
@@ -17,6 +17,7 @@ import { useTasks } from "utils/task";
 import { CreateKanban } from "./create-kanban";
 import { KanbanColumn } from "./kanban-column";
 import { SearchPanel } from "./search-panel";
+import { TaskModal } from "./task-modal";
 import {
   useKanbanSearchParams,
   useProjectInUrl,
@@ -48,6 +49,7 @@ export const KanBanScreen = () => {
           <CreateKanban />
         </ColumContainer>
       )}
+      <TaskModal />
     </ScreenContainer>
   );
 };
