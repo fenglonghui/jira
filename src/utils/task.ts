@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:59:12
- * @LastEditTime: 2022-04-15 22:36:49
+ * @LastEditTime: 2022-04-15 23:00:44
  * @LastEditors: Please set LastEditors
  * @Description: 关于任务组 hook
  * @FilePath: /jira/src/utils/task.ts
@@ -15,7 +15,7 @@ import {
   useAddConfig,
   useDeleteConfig,
   useEditConfig,
-  useReorderConfig,
+  useReorderTaskConfig,
 } from "./use-optimistic-options";
 
 /**
@@ -108,5 +108,5 @@ export const useReorderTask = (queryKey: QueryKey) => {
       method: "POST",
       data: params,
     });
-  }, useReorderConfig(queryKey));
+  }, useReorderTaskConfig(queryKey));
 };

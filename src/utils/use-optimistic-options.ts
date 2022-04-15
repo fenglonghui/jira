@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-04-12 16:53:15
- * @LastEditTime: 2022-04-15 22:34:57
+ * @LastEditTime: 2022-04-15 22:56:59
  * @LastEditors: Please set LastEditors
  * @Description: 关于乐观更新的配置 hook
  * @FilePath: /jira/src/utils/use-optimistic-options.ts
@@ -9,6 +9,8 @@
 
 import { QueryKey, useQueryClient } from "react-query";
 import { Project } from "types/project";
+import { Task } from "types/task";
+import { reorder } from "./reorder";
 
 export const useConfig = (
   queryKey: QueryKey,
@@ -56,5 +58,20 @@ export const useAddConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) => (old ? [...old, target] : [target]));
 
 // 拖拽排序 乐观更新
-export const useReorderConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (target, old) => old || []);
+// export const useReorderConfig = (queryKey: QueryKey) =>
+//   useConfig(queryKey, (target, old) => old || []);
+
+// 看板拖拽排序 - 乐观更新
+export const useReorderKanbanConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) => reorder({ list: old, ...target }));
+
+// 任务拖拽排序 - 乐观更新
+export const useReorderTaskConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) => {
+    const orderedList = reorder({ list: old, ...target }) as Task[];
+    return orderedList.map((item) =>
+      item.id === target.fromId
+        ? { ...item, kanbanId: target.toKanbanId }
+        : item
+    );
+  });

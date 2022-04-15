@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:52:27
- * @LastEditTime: 2022-04-15 22:38:09
+ * @LastEditTime: 2022-04-15 23:03:12
  * @LastEditors: Please set LastEditors
  * @Description: 关于看板 hook
  * @FilePath: /jira/src/utils/kanban.ts
@@ -9,11 +9,11 @@
 
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Kanban } from "types/kanban";
-import { http, useHttp } from "./http";
+import { useHttp } from "./http";
 import {
   useAddConfig,
   useDeleteConfig,
-  useReorderConfig,
+  useReorderKanbanConfig,
 } from "./use-optimistic-options";
 
 /**
@@ -89,5 +89,5 @@ export const useReorderKanban = (queryKey: QueryKey) => {
       method: "POST",
       data: params,
     });
-  }, useReorderConfig(queryKey));
+  }, useReorderKanbanConfig(queryKey));
 };
