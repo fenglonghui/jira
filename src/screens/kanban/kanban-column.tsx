@@ -2,7 +2,7 @@
 /*
  * @Author: 看板组件
  * @Date: 2022-04-13 12:02:07
- * @LastEditTime: 2022-04-14 17:26:44
+ * @LastEditTime: 2022-04-15 19:02:51
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/screens/kanban/kanban-column.tsx
@@ -21,6 +21,8 @@ import { Task } from "types/task";
 import { Mark } from "components/mark";
 import { useDeleteKanban } from "utils/kanban";
 import { Row } from "components/lib";
+import React from "react";
+import { Drag, Drop, DropChild } from "components/drag-and-drop";
 
 const TaskIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -55,27 +57,50 @@ const TaskCard = ({ task }: { task: Task }) => {
   );
 };
 
-export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
+/**
+ * KanbanColumn 组件转发ref
+ */
+export const KanbanColumn = React.forwardRef<
+  HTMLDivElement,
+  { kanban: Kanban }
+>(({ kanban, ...props }, ref) => {
   const { data: allTasks } = useTasks(useTasksSearchParams());
   const currKanBanTasks = allTasks?.filter(
     (task) => task.kanbanId === kanban.id
   );
 
   return (
-    <Container>
+    <Container {...props} ref={ref}>
       <Row between={true}>
         <h3>{kanban.name}</h3>
-        <More kanban={kanban} />
+        <More kanban={kanban} key={kanban.id} />
       </Row>
       <TaskContainer>
-        {currKanBanTasks?.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        {/* 任务拖拽 */}
+        <Drop
+          type={"ROW"}
+          direction={"vertical"}
+          droppableId={"task" + kanban.id}
+        >
+          <DropChild>
+            {currKanBanTasks?.map((task, taskIndex) => (
+              <Drag
+                key={task.id}
+                index={taskIndex}
+                draggableId={"task" + task.id}
+              >
+                <div>
+                  <TaskCard key={task.id} task={task} />
+                </div>
+              </Drag>
+            ))}
+          </DropChild>
+        </Drop>
         <CreateTask kanbanId={kanban.id} />
       </TaskContainer>
     </Container>
   );
-};
+});
 
 // 删除看板
 export const More = ({ kanban }: { kanban: Kanban }) => {

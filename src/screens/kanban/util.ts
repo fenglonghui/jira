@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 11:41:44
- * @LastEditTime: 2022-04-14 16:18:01
+ * @LastEditTime: 2022-04-15 17:29:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/screens/kanban/util.ts
@@ -9,7 +9,6 @@
 
 import { useCallback, useMemo } from "react";
 import { useLocation } from "react-router";
-import { useDebounce } from "utils";
 import { useProject } from "utils/project";
 import { useTask } from "utils/task";
 import { useUrlQueryParam } from "utils/url";

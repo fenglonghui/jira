@@ -1,14 +1,14 @@
 /*
  * @Author: flh
  * @Date: 2022-04-06 14:04:17
- * @LastEditTime: 2022-04-13 11:08:15
+ * @LastEditTime: 2022-04-15 17:28:48
  * @LastEditors: Please set LastEditors
  * @Description: 关于浏览器URL hook
  *      初步实现useUrlQueryParam 管理url参数状态
  *      使用useMemo传入创建函数和依赖项，并返回memoized值，只有在依赖项发生改变时重新计算该值
  * @FilePath: /jira/src/utils/url.ts
  */
-import react, { useMemo } from "react";
+import { useMemo } from "react";
 import { URLSearchParamsInit, useSearchParams } from "react-router-dom";
 import { cleanObject } from "utils";
 

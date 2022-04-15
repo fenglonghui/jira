@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 22:09:47
- * @LastEditTime: 2022-04-13 22:52:57
+ * @LastEditTime: 2022-04-15 17:27:35
  * @LastEditors: Please set LastEditors
  * @Description: 创建看板
  * @FilePath: /jira/src/screens/kanban/create-kanban.tsx
@@ -10,7 +10,6 @@ import React from "react";
 import { Input } from "antd";
 import { useState } from "react";
 import { useAddKanban } from "utils/kanban";
-import { ColumContainer } from "./index";
 import { useKanbanQueryKey, useProjectIdInUrl } from "./util";
 import { Container } from "./kanban-column";
 

@@ -1,17 +1,17 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-13 21:35:04
+ * @LastEditTime: 2022-04-15 17:29:32
  * @LastEditors: Please set LastEditors
  * @Description: 主页面（搜索， 项目列表）
  * @FilePath: /jira/src/screens/project-list/index.jsx
  */
-import React, { useState } from "react";
+import React from "react";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "utils";
 import styled from "@emotion/styled";
-import { Button, Row, Typography } from "antd";
+import { Button, Row } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";

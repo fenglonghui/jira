@@ -1,14 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:59:12
- * @LastEditTime: 2022-04-14 16:59:11
+ * @LastEditTime: 2022-04-15 17:28:26
  * @LastEditors: Please set LastEditors
  * @Description: 关于任务组 hook
  * @FilePath: /jira/src/utils/task.ts
  */
 
 import { QueryKey, useMutation, useQuery } from "react-query";
-import { Project } from "types/project";
 import { Task } from "types/task";
 import { useHttp } from "./http";
 import {

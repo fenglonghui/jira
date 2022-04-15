@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-13 17:45:41
+ * @LastEditTime: 2022-04-15 16:18:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -655,6 +655,14 @@ npx msw init public
 
         4. svg图片处理
             https://www.svgminify.com/
+
+    看板创建、任务创建、编辑、删除的开发
+
+    拖拽排序（采用react beautiful dnd 实现）
+
+        yarn add react-beautiful-dnd
+
+        yarn add @types/react-beautiful-dnd -D
 
 # 十四. 项目运行调试、编译、发布打包
 

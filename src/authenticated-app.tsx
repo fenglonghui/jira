@@ -2,13 +2,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-13 20:58:50
+ * @LastEditTime: 2022-04-15 17:28:12
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
  */
 import { useAuth } from "context/auth-context";
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { ProjectListScreen } from "screens/project-list";
 import { ButtonNoPadding, Row } from "components/lib";
