@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-15 16:18:14
+ * @LastEditTime: 2022-04-15 22:47:01
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -663,6 +663,12 @@ npx msw init public
         yarn add react-beautiful-dnd
 
         yarn add @types/react-beautiful-dnd -D
+
+        看板拖拽的实现
+        看板中任务组的拖拽的实现
+        排序
+        拖拽排序的持久化
+            const onDragEnd = useDragEnd()
 
 # 十四. 项目运行调试、编译、发布打包
 

@@ -2,7 +2,7 @@
 /*
  * @Author: 看板组件
  * @Date: 2022-04-13 12:02:07
- * @LastEditTime: 2022-04-15 19:02:51
+ * @LastEditTime: 2022-04-15 22:04:45
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/src/screens/kanban/kanban-column.tsx
@@ -80,7 +80,7 @@ export const KanbanColumn = React.forwardRef<
         <Drop
           type={"ROW"}
           direction={"vertical"}
-          droppableId={"task" + kanban.id}
+          droppableId={String(kanban.id)}
         >
           <DropChild>
             {currKanBanTasks?.map((task, taskIndex) => (

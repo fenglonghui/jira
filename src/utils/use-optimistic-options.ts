@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-04-12 16:53:15
- * @LastEditTime: 2022-04-13 11:07:09
+ * @LastEditTime: 2022-04-15 22:34:57
  * @LastEditors: Please set LastEditors
  * @Description: 关于乐观更新的配置 hook
  * @FilePath: /jira/src/utils/use-optimistic-options.ts
@@ -54,3 +54,7 @@ export const useEditConfig = (queryKey: QueryKey) =>
 
 export const useAddConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) => (old ? [...old, target] : [target]));
+
+// 拖拽排序 乐观更新
+export const useReorderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) => old || []);

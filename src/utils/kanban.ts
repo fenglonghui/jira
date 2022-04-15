@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:52:27
- * @LastEditTime: 2022-04-14 16:58:03
+ * @LastEditTime: 2022-04-15 22:38:09
  * @LastEditors: Please set LastEditors
  * @Description: 关于看板 hook
  * @FilePath: /jira/src/utils/kanban.ts
@@ -9,8 +9,12 @@
 
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Kanban } from "types/kanban";
-import { useHttp } from "./http";
-import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
+import { http, useHttp } from "./http";
+import {
+  useAddConfig,
+  useDeleteConfig,
+  useReorderConfig,
+} from "./use-optimistic-options";
 
 /**
  * 获取看板列表
@@ -59,4 +63,31 @@ export const useDeleteKanban = (querykey: QueryKey) => {
       }),
     useDeleteConfig(querykey)
   );
+};
+
+export interface SortProps {
+  // 重新排序的 item
+  fromId: number;
+  // 目标 item
+  referenceId: number;
+  // 放在目标item的前还是后
+  type: "before" | "after";
+  fromKanbanId?: number;
+  toKanbanId?: number;
+}
+
+/**
+ * 看板排序
+ * @param queryKey
+ * @returns
+ */
+export const useReorderKanban = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation((params: SortProps) => {
+    return client("kanbans/reorder", {
+      method: "POST",
+      data: params,
+    });
+  }, useReorderConfig(queryKey));
 };

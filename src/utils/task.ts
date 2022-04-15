@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-13 10:59:12
- * @LastEditTime: 2022-04-15 17:28:26
+ * @LastEditTime: 2022-04-15 22:36:49
  * @LastEditors: Please set LastEditors
  * @Description: 关于任务组 hook
  * @FilePath: /jira/src/utils/task.ts
@@ -10,10 +10,12 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Task } from "types/task";
 import { useHttp } from "./http";
+import { SortProps } from "./kanban";
 import {
   useAddConfig,
   useDeleteConfig,
   useEditConfig,
+  useReorderConfig,
 } from "./use-optimistic-options";
 
 /**
@@ -92,4 +94,19 @@ export const useDeleteTask = (querykey: QueryKey) => {
       }),
     useDeleteConfig(querykey)
   );
+};
+
+/**
+ * 任务排序
+ * @returns
+ */
+export const useReorderTask = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation((params: SortProps) => {
+    return client("tasks/reorder", {
+      method: "POST",
+      data: params,
+    });
+  }, useReorderConfig(queryKey));
 };
