@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:40:33
- * @LastEditTime: 2022-04-11 21:22:42
+ * @LastEditTime: 2022-04-16 22:50:54
  * @LastEditors: Please set LastEditors
  * @Description: 非认证登录表单
  * @FilePath: /jira/src/unauthenticated-app/index.tsx
@@ -18,7 +18,7 @@ import right from "assets/right.svg";
 // import { Helmet } from "react-helmet";
 import { useDocumentTitle } from "utils";
 
-export const UnauthenticatedApp = () => {
+export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false);
 
   useDocumentTitle("请注册或登录以继续");
@@ -36,7 +36,7 @@ export const UnauthenticatedApp = () => {
       </ShadowCard>
     </Container>
   );
-};
+}
 
 export const LogButton = styled(Button)`
   width: 100%;

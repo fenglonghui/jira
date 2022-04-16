@@ -1,23 +1,24 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:11:52
- * @LastEditTime: 2022-04-15 17:29:32
+ * @LastEditTime: 2022-04-16 22:58:09
  * @LastEditors: Please set LastEditors
  * @Description: 主页面（搜索， 项目列表）
  * @FilePath: /jira/src/screens/project-list/index.jsx
  */
-import React from "react";
+import React, { useState } from "react";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "utils";
 import styled from "@emotion/styled";
-import { Button, Row } from "antd";
+import { Button } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
 // import { Helmet } from "react-helmet";
 // import { useUrlQueryParam } from "utils/url";
 import { useProjectModal, useProjectSearchParam } from "./util";
-import { ErrorBox } from "components/lib";
+import { ErrorBox, Row } from "components/lib";
+import { Profiler } from "components/profiler";
 
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
@@ -40,25 +41,31 @@ export const ProjectListScreen = () => {
 
   const { open } = useProjectModal();
 
+  // style={{
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   justifyContent: "space-between",
+  // }}
+
+  // 测试 React.memo减少子组件渲染次数
+  // const [value, setValue] = useState('');
+
   return (
-    <Container>
-      <Row
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <h1>项目列表</h1>
-        <Button type="link" onClick={() => open()}>
-          创建项目
-        </Button>
-      </Row>
-      <SearchPanel users={users || []} param={param} setParam={setParam} />
-      <ErrorBox error={error} />
-      <List loading={isLoading} dataSource={list || []} users={users || []} />
-    </Container>
+    <Profiler id={"项目列表"}>
+      <Container>
+        {/* <input value={value} onChange={evt => setValue(evt.target.value)} /> */}
+        <Row marginBottom={2} between={true}>
+          <h1>项目列表</h1>
+          <Button type="link" onClick={() => open()}>
+            创建项目
+          </Button>
+        </Row>
+        <SearchPanel users={users || []} param={param} setParam={setParam} />
+        <ErrorBox error={error} />
+        <List loading={isLoading} dataSource={list || []} users={users || []} />
+      </Container>
+    </Profiler>
   );
 };
 

@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 17:16:22
- * @LastEditTime: 2022-04-13 11:11:46
+ * @LastEditTime: 2022-04-16 21:37:56
  * @LastEditors: Please set LastEditors
  * @Description: 项目列表组件
  * @FilePath: /jira/src/screens/project-list/list.jsx
@@ -29,7 +29,8 @@ interface ListProps extends TableProps<Project> {
 // pinProject(project.id, pin);
 // }} />
 
-export const List = ({ users, ...props }: ListProps) => {
+export const List = React.memo(({ users, ...props }: ListProps) => {
+  console.log("list render");
   // hook函数必须放在顶层或hook函数中
   const { mutate } = useEditProject(useProjectsQueryKey());
   // const pinProject = (id: number, pin: boolean) => mutate({id, pin})
@@ -98,7 +99,7 @@ export const List = ({ users, ...props }: ListProps) => {
       {...props}
     ></Table>
   );
-};
+});
 
 export const More = ({ project }: { project: Project }) => {
   const { startEdit } = useProjectModal();

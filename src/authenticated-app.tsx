@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /*
  * @Author: flh
  * @Date: 2022-04-01 21:50:44
- * @LastEditTime: 2022-04-16 11:34:31
+ * @LastEditTime: 2022-04-16 22:50:00
  * @LastEditors: Please set LastEditors
  * @Description: 认证页面
  * @FilePath: /jira/src/authenticated-app.tsx
@@ -23,7 +22,7 @@ import { ProjectModal } from "screens/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 import { UserPopover } from "components/user-popover";
 
-export const AuthenticatedApp = () => {
+export default function AuthenticatedApp() {
   // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
   // const [projectModalOpen, setProjectModalOpen] = useState(false);
   // 状态提升，控制模态窗打开/关闭， 引发属性下钻问题和耦合问题（可以采用组件组合来优化）
@@ -51,7 +50,7 @@ export const AuthenticatedApp = () => {
       </Router>
     </Container>
   );
-};
+}
 
 const PageHeader = () => {
   const { logout, user } = useAuth();

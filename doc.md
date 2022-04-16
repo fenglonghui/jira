@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-16 12:46:47
+ * @LastEditTime: 2022-04-16 22:56:50
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -692,6 +692,40 @@ npx msw init public
         1. 在public文件夹中，（复制）404.html文件
         2. 参照redirect script 里js代码,复制代码到public/index.html的script中,即可
 
+    6. 优化
+        1. 代码分割
+        2. React.memo来防止多次渲染（会对props做浅比较，本身就消耗性能的，除非某个组件非常昂贵，计算量非常非常大，不到万不得已，不使用memo的）
+            父组件因input value的改变发生重新render，此时子组件也为给导致render，此时不想组件渲染可以使用
+            React.membo包装子组件，可避免子组件不会因为父组件的属性改变被无辜render
+
+            除非子组件的属性props发生改变或使用redux，才发生rerender
+
+
+            比如： 对project-list的list组件使用React.memo来包装，防止父组件因input输入值改变而导致多次渲染
+
+        3. 追踪性能
+            使用Profile，来识别渲染过程中较慢的部分 或者memoization来优化
+
+            Profile的使用（用于非生产环境，生产环境被禁用）
+                1. 包在组件的外面
+
+            在build的时候，加上--profile,否则 代码中Profile不起作用
+              yarn build --profile
+              npm run --profile
+
+            a. 创建 profiler.tsx
+            /src/index.tsx 页面：
+
+```
+                <Profiler id={"Root App"} phases={['mount']}>
+                    <AppProviders>
+                    <DevTools />
+                    <App />
+                    </AppProviders>
+                </Profiler>
+
+                ...
+```
 
 ## Available Scripts
 
