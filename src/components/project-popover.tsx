@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-10 16:01:42
- * @LastEditTime: 2022-04-11 22:32:23
+ * @LastEditTime: 2022-04-16 11:07:10
  * @LastEditors: Please set LastEditors
  * @Description: popover 鼠标移上去，下拉菜单显示出来
  * @FilePath: /jira/src/components/popover.tsx
@@ -14,7 +14,8 @@ import { ButtonNoPadding } from "./lib";
 import { useProjectModal } from "screens/project-list/util";
 
 export const ProjectPopover = () => {
-  const { data: projects } = useProjects();
+  // refetch 刷新
+  const { data: projects, refetch } = useProjects();
   const pinnedProjects = projects?.filter((project) => project.pin);
 
   const { open } = useProjectModal();
@@ -38,7 +39,11 @@ export const ProjectPopover = () => {
   );
 
   return (
-    <Popover placement={"bottom"} content={content}>
+    <Popover
+      onVisibleChange={() => refetch()}
+      placement={"bottom"}
+      content={content}
+    >
       项目
     </Popover>
   );
