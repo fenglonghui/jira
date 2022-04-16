@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-16 12:09:54
+ * @LastEditTime: 2022-04-16 12:46:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -682,6 +682,16 @@ npx msw init public
         "deploy": "gh-pages -d build -r git@github.com:fenglonghui/fenglonghui.github.io.git -b main"
     4. 运行
         npm run deploy
+
+        即可把当前jira项目部署到github上（env里url协议修改为https）
+
+    5. 线上单页面404问题处理
+        参照：spa-github-pages库 404.html的解决方案
+        url ： https://github.com/rafgraph/spa-github-pages/blob/gh-pages/404.html
+
+        1. 在public文件夹中，（复制）404.html文件
+        2. 参照redirect script 里js代码,复制代码到public/index.html的script中,即可
+
 
 ## Available Scripts
 
