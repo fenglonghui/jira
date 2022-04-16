@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-16 11:59:03
+ * @LastEditTime: 2022-04-16 12:09:54
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -676,6 +676,12 @@ npx msw init public
 
     2. 安装gh-pages 依赖
         yarn add gh-pages -D
+
+    3. 配置package.json脚本命令
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build -r git@github.com:fenglonghui/fenglonghui.github.io.git -b main"
+    4. 运行
+        npm run deploy
 
 ## Available Scripts
 
