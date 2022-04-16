@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 22:49:54
- * @LastEditTime: 2022-04-15 22:46:00
+ * @LastEditTime: 2022-04-15 23:33:57
  * @LastEditors: Please set LastEditors
  * @Description: 看板页面
  * @FilePath: /jira/src/screens/kanban/index.tsx
@@ -15,7 +15,7 @@ import { ScreenContainer } from "components/lib";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDocumentTitle } from "utils";
 import { useKanbans, useReorderKanban } from "utils/kanban";
-import { useReorderTask, useTask, useTasks } from "utils/task";
+import { useReorderTask, useTasks } from "utils/task";
 import { CreateKanban } from "./create-kanban";
 import { KanbanColumn } from "./kanban-column";
 import { SearchPanel } from "./search-panel";
