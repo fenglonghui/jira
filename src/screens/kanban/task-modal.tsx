@@ -1,14 +1,13 @@
 /*
  * @Author: flh
  * @Date: 2022-04-14 14:48:52
- * @LastEditTime: 2022-04-14 17:22:03
+ * @LastEditTime: 2022-04-17 21:30:48
  * @LastEditors: Please set LastEditors
  * @Description: 创建任务 modal
  * @FilePath: /jira/src/screens/kanban/task-modal.tsx
  */
 
 import React, { useEffect } from "react";
-import { useForm } from "antd/es/form/Form";
 import { useTasksModal, useTasksQueryKey } from "./util";
 import { useDeleteTask, useEditTask } from "utils/task";
 import { Button, Form, Input, Modal } from "antd";
@@ -21,7 +20,7 @@ const layout = {
 };
 
 export const TaskModal = () => {
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const { editingTaskId, editingTask, close } = useTasksModal();
 
   const { mutateAsync: deleteTask } = useDeleteTask(useTasksQueryKey());

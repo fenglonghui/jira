@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-16 00:08:43
- * @LastEditTime: 2022-04-16 10:51:53
+ * @LastEditTime: 2022-04-17 21:30:34
  * @LastEditors: Please set LastEditors
  * @Description: 创建Epic
  * @FilePath: /jira/src/screens/epic/create-epic.tsx
@@ -9,7 +9,6 @@
 
 import styled from "@emotion/styled";
 import { Button, Drawer, DrawerProps, Form, Input, Spin } from "antd";
-import { useForm } from "antd/es/form/Form";
 import { ErrorBox } from "components/lib";
 import { useEffect } from "react";
 import { useProjectIdInUrl } from "screens/kanban/util";
@@ -20,7 +19,7 @@ export const CreateEpic = (
   props: Pick<DrawerProps, "visible"> & { onClose: () => void }
 ) => {
   const { mutate: addEpic, error, isLoading } = useAddEpic(useEpicQueryKey());
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const projectId = useProjectIdInUrl();
 
   const onFinish = async (values: any) => {

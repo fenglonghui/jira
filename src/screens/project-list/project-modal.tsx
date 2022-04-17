@@ -3,7 +3,6 @@ import { Button, Drawer, Form, Input, Spin } from "antd";
 import { useProjectModal, useProjectsQueryKey } from "./util";
 import { UserSelect } from "components/user-select";
 import { useAddProject, useEditProject } from "utils/project";
-import { useForm } from "antd/lib/form/Form";
 import { ErrorBox } from "components/lib";
 import styled from "@emotion/styled";
 
@@ -23,7 +22,7 @@ export const ProjectModal = () => {
     error,
     isLoading: mutateLoading,
   } = useMutateProject(useProjectsQueryKey());
-  const [form] = useForm();
+  const [form] = Form.useForm();
 
   // 关闭
   const closeModal = () => {
