@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-04-05 00:10:24
- * @LastEditTime: 2022-04-13 11:03:43
+ * @LastEditTime: 2022-04-17 20:25:59
  * @LastEditors: Please set LastEditors
  * @Description: 关于项目 hook
  * @FilePath: /jira/src/utils/projects.ts
@@ -13,6 +13,7 @@
 
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { Project } from "types/project";
+import { cleanObject } from "utils";
 import { useHttp } from "./http";
 import {
   useAddConfig,
@@ -29,7 +30,7 @@ export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
 
   // param 为依赖项（param发生变化，useQuery重新调用）
-  return useQuery<Project[]>(["projects", param], () =>
+  return useQuery<Project[]>(["projects", cleanObject(param)], () =>
     client("projects", { data: param })
   );
 };

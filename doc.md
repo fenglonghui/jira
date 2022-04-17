@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:28:33
- * @LastEditTime: 2022-04-16 22:56:50
+ * @LastEditTime: 2022-04-17 16:40:32
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jira/README.md
@@ -726,6 +726,75 @@ npx msw init public
 
                 ...
 ```
+
+# 十五. 自动化测试
+
+    1. 用于组件测试,
+        @testing-library/react
+            render, screen
+
+    2. 用于hook测试
+        @testing-library/react-hooks
+            act, renderHook
+
+    3. 用于单元测试
+        @testing-library/jest-dom
+             jest, test
+        msw/node
+            setupServer
+            rest （msw）
+
+
+    自动化测试目的：对自己代码更有信心，避免新代码破坏旧代码
+
+    分类：
+        1. 单元测试（传统单元测试、组件测试、hook测试）
+        2. 集成测试 (多个单元集成一起，集成一个模块进行测试)
+        3. 端到端(e2e)测试
+
+    安装相关库
+        React工程自带的测试库：
+            @testing-library/jest-dom
+            @testing-library/react
+            @testing-library/user-event
+        需要安装的库：
+            @testing-library/react-hooks msw
+
+            yarn add @testing-library/react-hooks msw -D
+
+    1. 传统单元测试， 测试函数
+        创建__tests__文件夹，并创建https.ts文件,测试http函数
+
+```
+            // jest 是对react最友好的一个测试库，
+            // beforeAll表示在执行所有的测试之前先来执行一下回调函数
+            beforeAll(() => server.listen());
+            // 每一个测试跑完以后，都重置mock路由
+            afterEach(() => server.resetHandlers());
+            // 所有的测试跑完后，关闭mock路由
+            afterAll(() => server.close());
+            // 创建test 测试单元
+
+            // teast 代表一个测试单元, 测试http方法
+            test('http方法发送异步请求', async () => {
+                const endpoint = 'test-endpoint';  // 相当于 url
+                const mockResult = {mockValue: "mock"};
+
+                // 捕获发送的请求， mock request
+                server.use(
+                    rest.get(`${apiUrl}/${endpoint}`, (req, res, ctx) => res(ctx.json(mockResult)))
+                );
+
+                // http 发送请求
+                const result = await http(endpoint);
+
+                // 期待
+                expect(result).toEqual(mockResult);
+            });
+```
+
+    2. 测试hook
+
 
 ## Available Scripts
 

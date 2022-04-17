@@ -1,7 +1,7 @@
 /*
  * @Author: flh
  * @Date: 2022-03-30 21:19:11
- * @LastEditTime: 2022-04-13 11:05:10
+ * @LastEditTime: 2022-04-17 20:24:47
  * @LastEditors: Please set LastEditors
  * @Description: 公共的 hook
  * @FilePath: /jira/src/utils/index.ts
@@ -24,7 +24,10 @@ export const isVoid = (value: unknown) =>
 // b = () => {}
 
 // 在一个函数里，改变传入的对象本身是不好
-export const cleanObject = (object: { [key: string]: unknown }) => {
+export const cleanObject = (object?: { [key: string]: unknown }) => {
+  if (!object) {
+    return {};
+  }
   // const result = Object.assign({}, object);
   const result = { ...object };
   Object.keys(result).forEach((key) => {
